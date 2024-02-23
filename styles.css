@@ -1,0 +1,74 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans", sans-serif;
+}
+body{
+    background-color: aliceblue;
+}
+.nav-bar {
+    overflow: hidden;
+    background-color: rgb(81, 139, 205);
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    height: 700px;
+}
+.nav-bar p.name{
+    color: #fff;
+    display: inline-block;
+    margin-top: 30px;
+    margin-left: 100px;
+    font-size: 2em;
+}
+.nav-bar p img{
+    margin-right: 10px;
+    margin-left: 30px;
+}
+.nav-bar .link{
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    float: right;
+    text-align: center;
+    padding: 14px 16px;    
+    margin-top: 30px;
+    text-decoration: none;
+    font-size: 1em;   
+}
+a:nth-child(2){
+    margin-right: 180px;
+}
+.nav-bar .link:hover{
+    background-color: #dde6ea;
+    color: #000;
+    border: none;
+    border-radius: 10%;
+}
+.nav-bar h1{
+    color: #fff;
+    margin-top: 150px;
+    margin-left: 50px;
+    text-align: center;
+    font-size: 3.2rem;
+}
+.nav-bar p{
+    color: #fff;
+    text-align: center;
+    font-size: 1.2rem;
+    margin-left: 16px;
+    margin-top: 20px;
+}
+.nav-bar button{
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    margin-left: 700px;
+    margin-top: 60px;
+    border-radius: 20px;
+    font-size: 1em;
+    background-color: #fff;
+    color: rgb(0, 119, 255);
+    border: 1px solid #fff;
+    cursor: pointer;
+}
