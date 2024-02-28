@@ -5,6 +5,7 @@
 }
 body{
     background-color: aliceblue;
+    font-family: "Noto Sans", sans-serif;
 }
 .nav-bar {
     overflow: hidden;
@@ -13,7 +14,7 @@ body{
     background-color: rgb(81, 139, 205);
     /* position: fixed;  */
     width: 100%; 
-    height: 650px;
+    height: 690px;
 }
 .nav-bar p.name{
     color: #fff;
@@ -49,7 +50,7 @@ a:nth-child(2){
 }
 .nav-bar h1{
     color: #fff;
-    margin-top: 150px;
+    margin-top: 200px;
     margin-left: 50px;
     text-align: center;
     font-size: 3.2rem;
@@ -90,6 +91,8 @@ a:nth-child(2){
     padding: 10px 0px;
     margin: 0 auto;
     text-align: center;
+    position: relative;
+    bottom: 90px;
 }
 .container div:nth-child(1){
     background-color: #fff;
@@ -120,4 +123,55 @@ h3{
 }
 span{
     margin: 0 auto;
+}
+.container2{
+    margin: 0 auto;
+    width: 70%;
+}
+.first-h2{
+    text-align: center;
+    font-size: 2.3rem;
+    color: #000;
+}
+.container3{
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 30px 30px;
+    margin: 5px auto;
+    padding: 35px 135px;
+}
+.poster1{
+    background-color: #fff;
+    height: 200px;
+}
+.poster2{
+    background-color: #fff;
+    height: 200px;
+}
+.poster3{
+    background-color: #fff; 
+    height: 200px;
+}
+.poster4{
+    background-color: #fff;
+    height: 200px;
+}
+
+footer{
+    background-color: rgb(80, 153, 236);
+    width: 100%;
+    height: 400px;
+    align-items: center;
+    text-align: center;
+}
+.footer-h2{
+    font-size: 2.3rem;
+    color: #fff;
+    padding-top: 100px;
+    padding-bottom: 20px;
+}
+footer p{
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: 400;
 }
