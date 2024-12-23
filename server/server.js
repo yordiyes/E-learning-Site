@@ -3,7 +3,8 @@ import axios from "axios";
 import cors from "cors";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import Users from "./models/userModel";
+import Users from "./models/userModel.js";
+import APIRoute from "./routes/APIRoutes.js";
 
 const port = 5000;
 const saltRounds = 10;
@@ -12,65 +13,65 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post("/api/auth/signup", (req, res) => {
-  res.send("Sign up");
-  if (
-    req.body.name === undefined ||
-    req.body.email === undefined ||
-    req.body.password === undefined
-  ) {
-    return res.status(400).send("All input is required");
-  }
-  Users.findOne({ email: req.body.email }, (err, user) => {
-    if (err) {
-      res.status(400).send("Error finding user in the database");
-    }
-    if (user) {
-      res.status(400).send("User already exists");
+app.post(APIRoute.AUTH.SIGNUP, async (req, res) => {
+  try {
+    const { name, email, password, role } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).send("All input is required");
     }
 
-    bcrypt.genSalt(saltRounds, (err, salt) => {
-      if (err) {
-        return res.status(400).send("Error generating salt");
-      }
-      bcrypt.hash(req.body.password, salt, (err, hashedPassword) => {
-        if (err) {
-          return res.status(400).send("Error hashing password");
-        }
-        const newUser = new Users({
-          name: req.body.name,
-          email: req.body.email,
-          password: hashedPassword,
-        });
-        newUser.save((err) => {
-          if (err) {
-            return res.status(400).send("Error saving user to the database");
-          }
-          return res.status(201).send("User created successfully");
-        });
-      });
+    const user = await Users.findOne({ email });
+    if (user) {
+      return res.status(400).send("User already exists");
+    }
+
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newUser = new Users({
+      name,
+      email,
+      password: hashedPassword,
+      role,
     });
-  });
+
+    await newUser.save();
+
+    res.status(201).send("User created successfully");
+  } catch (err) {
+    console.error("Error occurred:", err);
+    if (err.message.includes("duplicate key")) {
+      return res.status(400).send("User already exists");
+    }
+    res.status(500).send("Error processing request");
+  }
 });
-app.post("/api/auth/signin", (req, res) => {
-  if(req.body.email === undefined || rq.body.password === undefined){
+app.post(APIRoute.AUTH.SIGNIN, async (req, res) => {
+  if (req.body.email === undefined || req.body.password === undefined) {
     return res.status(400).send("Email and Password are required");
   }
 
-  Users.findOne({email: req.body.email}, (err, user)=>{
-    if(err){
-        return res.status(400).send("Error finding user in the database");
-    }
-    if(!user){
-        return res.status(400).send("User not found");
+  try {
+    // Use async/await with findOne
+    const user = await Users.findOne({ email: req.body.email });
+
+    if (!user) {
+      return res.status(400).send("User not found");
     }
 
-    const token = jwt.sign({userId: user._id}, "mysecretkey", {
-        expiredin:"1h"
-    })
+    // Here you can add password checking and token generation logic if needed
+    // const match = await bcrypt.compare(req.body.password, user.password);
+    // if (!match) {
+    //   return res.status(400).send("Invalid credentials");
+    // }
 
-    return res.status(200).json({message: "Sign in successful", token});
-  })
+    // const token = jwt.sign({ userId: user._id }, "mysecretkey", { expiresIn: "1h" });
+
+    return res.status(200).json({ message: "Sign in successful" });
+  } catch (err) {
+    return res.status(500).send("Error finding user in the database");
+  }
 });
 
 app.listen(port, () => {
