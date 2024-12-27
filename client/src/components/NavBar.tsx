@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
+  const navigate = useNavigate();
   return (
     <Nav className="bg-gray-800 text-F6D6D6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,8 +38,18 @@ export default function NavBar() {
             </a>
           </div>
           <div className="md-flex">
-            <button className="border-2 border-pink-500 text-blue-500 px-4 mx-2 py-1 rounded hover:bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition">Sign In</button>
-            <button className="border-2 border-none text-Tan px-4 mx-2 py-1 rounded hover:bg-blue-500 bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition">Free Trial</button>
+            <button
+              className="border-2 border-pink-500 text-blue-500 px-4 mx-2 py-1 rounded hover:bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition"
+              onClick={() => navigate("/signup")}
+            >
+              Sign Up
+            </button>
+            <button
+              className="border-2 border-none text-Tan px-4 mx-2 py-1 rounded hover:bg-blue-500 bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition"
+              onClick={() => navigate("/signin")}
+            >
+              Free Trial
+            </button>
           </div>
         </div>
       </div>
@@ -46,5 +58,5 @@ export default function NavBar() {
 }
 
 const Nav = styled.div`
-  background-color:rgb(249, 220, 247);
+  background-color: rgb(249, 220, 247);
 `;

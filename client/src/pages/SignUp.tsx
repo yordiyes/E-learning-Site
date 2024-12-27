@@ -1,29 +1,33 @@
 import styled from "styled-components";
 import student2 from "../assets/student2.png";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function SignUp() {
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
     const payload = {
-      name: (form.elements.namedItem('name') as HTMLInputElement).value,
-      email: (form.elements.namedItem('email') as HTMLInputElement).value,
-      password: (form.elements.namedItem('password') as HTMLInputElement).value,
-    }
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      password: (form.elements.namedItem("password") as HTMLInputElement).value,
+    };
 
-    try{
-      const response = await axios.post(`http://localhost:5000/api/auth/signup`, payload)
-      console.log(response.data)
-    }catch(error){
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/auth/signup`,
+        payload
+      );
+      console.log(response.data);
+    } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         console.error(error.response.data);
       } else {
         console.error(error);
       }
     }
-  }
+  };
   return (
     <Container>
       <div className="img-container">
@@ -107,6 +111,12 @@ export default function SignUp() {
               value="Sign Up"
               className="w-full border-2 border-none text-Tan px-4 py-1 rounded hover:bg-blue-500 bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition"
             />
+            <p className="text-center">
+              If you alredy have an account{" "}
+              <Link to="/signin" className="text-blue-500">
+                <button>Sign In</button>
+              </Link>
+            </p>
           </form>
         </div>
       </div>

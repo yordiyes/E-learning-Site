@@ -32,12 +32,12 @@ export default function SignIn() {
       <div className="form-container">
         <div className="max-w-l mx-auto bg-white shadow-lg rounded-lg p-16 space-y-4">
           <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
-            Sign Up
+            Sign In
           </h2>
 
           <form onSubmit={(event) => handleSubmit(event)}>
             <label
-              htmlFor="email"
+              htmlFor="email_signin"
               className="block text-sm font-medium text-gray-700 mb-3"
             >
               Email
@@ -50,7 +50,7 @@ export default function SignIn() {
               placeholder="Email"
             />
             <label
-              htmlFor="password"
+              htmlFor="password_signin"
               className="block text-sm font-medium text-gray-700 mb-3 "
             >
               Password
