@@ -27,7 +27,7 @@ export default function Show() {
 
 const Container = styled.div`
   background-color: rgb(249, 220, 247);
-  min-height: 91vh;
+  min-height: 92vh;
   display: flex;
   align-items: center;
   justify-content: center;

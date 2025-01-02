@@ -65,7 +65,7 @@ export default function SignIn() {
             <input
               type="submit"
               value="Sign In"
-              className="w-full border-2 border-none text-Tan px-4 py-1 rounded hover:bg-blue-500 bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition"
+              className="w-full singnIn-btn font-medium border-2 border-none text-Tan px-4 py-1 rounded hover:bg-blue-500 bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition"
             />
           </form>
         </div>
@@ -85,5 +85,8 @@ const Container = styled.div`
   .stud-img {
     height: 90vh;
     width: 30vw;
+  }
+  .singnIn-btn:hover {
+    cursor: pointer;
   }
 `;

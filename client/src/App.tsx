@@ -17,9 +17,8 @@ export default function App() {
             </>
           }
         />{" "}
-        {/* Default to SignIn */}
-        <Route path="/signup" element={<SignUp />} /> {/* SignUp Page */}
-        <Route path="/signin" element={<SignIn />} /> {/* SignIn Page */}
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
       </Routes>
     </BrowserRouter>
   );

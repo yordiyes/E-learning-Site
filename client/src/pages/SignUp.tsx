@@ -109,11 +109,11 @@ export default function SignUp() {
             <input
               type="submit"
               value="Sign Up"
-              className="w-full border-2 border-none text-Tan px-4 py-1 rounded hover:bg-blue-500 bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition"
+              className="singnUp-btn w-full border-2 border-none font-medium text-Tan px-4 py-1 rounded hover:bg-blue-500 bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition"
             />
             <p className="text-center">
               If you alredy have an account{" "}
-              <Link to="/signin" className="text-blue-500">
+              <Link to="/signin" className="text-blue-500 font-medium">
                 <button>Sign In</button>
               </Link>
             </p>
@@ -132,5 +132,8 @@ const Container = styled.div`
   .stud-img {
     height: 80vh;
     width: 38vw;
+  }
+  .singnUp-btn:hover {
+    cursor: pointer;
   }
 `;
