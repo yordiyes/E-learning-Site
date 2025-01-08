@@ -76,7 +76,6 @@ app.post(APIRoute.AUTH.SIGNIN, async (req, res) => {
       return res.status(401).send("Invalid credentials");
     }
 
-    console.log("JWT Secret Key:", secretKey);
 
     // Generate a JWT token
     const token = jwt.sign(

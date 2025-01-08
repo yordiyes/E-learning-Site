@@ -2,11 +2,14 @@ import { useState } from "react";
 import styled from "styled-components";
 import student3 from "../assets/student3.png";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent default form submission
@@ -22,15 +25,33 @@ export default function SignIn() {
 
       const { token, user } = response.data;
 
-      // Store the token securely
+      // Check if token and user data exist
+      if (!token || !user) {
+        setError("Authentication failed. Please try again.");
+        return;
+      }
+
+      // Store the token and role securely
       localStorage.setItem("authToken", token);
+      localStorage.setItem("userRole", user.role);
 
       console.log("User signed in successfully:", user);
-      alert("Sign-in successful!");
+
+      console.log(user.role)
+      // Redirect based on user role
+      if (user.role === "student") {
+        navigate("/student-dashboard");
+      } else if (user.role === "Teacher") {
+        navigate("/teacher-dashboard");
+      } else {
+        navigate("/"); 
+      }
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        setError(err.response?.data || "Sign-in failed. Please try again.");
+        console.error("Axios error:", err.response); // Log the error for debugging
+        setError(err.response?.data?.message || "Sign-in failed. Please try again.");
       } else {
+        console.error("General error:", err); // Log any other errors
         setError("Sign-in failed. Please try again.");
       }
     }

@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import student2 from "../assets/student2.png";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,7 +16,7 @@ export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
@@ -46,10 +47,23 @@ export default function SignUp() {
       );
       console.log(response.data);
       setIsLoading(false);
-      // Handle successful signup (e.g., redirect or message)
+      const userRole = response.data.role || formData.role;
+
+      // Redirect to respective dashboard based on role
+      if (userRole === "student") {
+        navigate("/student-dashboard"); 
+      } else if (userRole === "teacher") {
+        navigate("/teacher-dashboard"); 
+      } else {
+        navigate("/"); 
+      }
     } catch (error) {
       setIsLoading(false);
-      setError(error.response?.data || "Something went wrong");
+      if(axios.isAxiosError(error) && error.response){
+        setError(error.response?.data);
+      }else{
+        setError("Something went wrong");
+      }
     }
   };
 
@@ -99,15 +113,17 @@ export default function SignUp() {
               <label htmlFor="role" className="label">
                 Role
               </label>
-              <input
-                type="text"
+              <select
                 name="role"
                 id="role"
-                placeholder="Role"
                 value={formData.role}
                 onChange={handleInputChange}
                 className="input-field"
-              />
+              >
+                <option value="">Select a role</option>
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+              </select>
             </div>
 
             <div className="input-group">
