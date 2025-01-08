@@ -1,18 +1,22 @@
 import express from "express";
-import axios from "axios";
 import cors from "cors";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Users from "./models/userModel.js";
 import APIRoute from "./routes/APIRoutes.js";
+import dotenv from "dotenv";
+dotenv.config();
+
 
 const port = 5000;
 const saltRounds = 10;
+const secretKey = process.env.SECRET_KEY; 
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+// SIGNUP Route
 app.post(APIRoute.AUTH.SIGNUP, async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
@@ -21,14 +25,17 @@ app.post(APIRoute.AUTH.SIGNUP, async (req, res) => {
       return res.status(400).send("All input is required");
     }
 
+    // Check if the user already exists
     const user = await Users.findOne({ email });
     if (user) {
       return res.status(400).send("User already exists");
     }
 
+    // Hash the password
     const salt = await bcrypt.genSalt(saltRounds);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // Save the new user
     const newUser = new Users({
       name,
       email,
@@ -47,33 +54,55 @@ app.post(APIRoute.AUTH.SIGNUP, async (req, res) => {
     res.status(500).send("Error processing request");
   }
 });
+
+// SIGNIN Route
 app.post(APIRoute.AUTH.SIGNIN, async (req, res) => {
-  if (req.body.email === undefined || req.body.password === undefined) {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
     return res.status(400).send("Email and Password are required");
   }
 
   try {
-    // Use async/await with findOne
-    const user = await Users.findOne({ email: req.body.email });
-
+    // Find the user by email
+    const user = await Users.findOne({ email });
     if (!user) {
       return res.status(400).send("User not found");
     }
 
-    // Here you can add password checking and token generation logic if needed
-    // const match = await bcrypt.compare(req.body.password, user.password);
-    // if (!match) {
-    //   return res.status(400).send("Invalid credentials");
-    // }
+    // Compare the entered password with the hashed password in the database
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).send("Invalid credentials");
+    }
 
-    // const token = jwt.sign({ userId: user._id }, "mysecretkey", { expiresIn: "1h" });
+    console.log("JWT Secret Key:", secretKey);
 
-    return res.status(200).json({ message: "Sign in successful" });
+    // Generate a JWT token
+    const token = jwt.sign(
+      { userId: user._id, role: user.role }, // Payload
+      secretKey, // Secret key
+      { expiresIn: "1h" } // Expiry time
+    );
+
+    // Respond with the token and user details
+    res.status(200).json({
+      message: "Sign in successful",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
   } catch (err) {
-    return res.status(500).send("Error finding user in the database");
+    console.error("Error occurred:", err);
+    res.status(500).send("Error processing sign-in");
   }
 });
 
+// Start the server
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
