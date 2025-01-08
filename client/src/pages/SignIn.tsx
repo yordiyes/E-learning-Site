@@ -1,28 +1,37 @@
+import { useState } from "react";
 import styled from "styled-components";
 import student3 from "../assets/student3.png";
 import axios from "axios";
 
 export default function SignIn() {
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
-    const form = e.target as HTMLFormElement;
-    const payload = {
-      email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      password: (form.elements.namedItem("password") as HTMLInputElement).value,
-    };
+  const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Prevent default form submission
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/auth/signin`,
-        payload
+        "http://localhost:5000/api/auth/signin",
+        {
+          email,
+          password,
+        }
       );
-      console.log(response.data); // Handle the response, maybe save a token or redirect
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        console.error(error.response.data); // Handle error from backend
+
+      const { token, user } = response.data;
+
+      // Store the token securely
+      localStorage.setItem("authToken", token);
+
+      console.log("User signed in successfully:", user);
+      alert("Sign-in successful!");
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data || "Sign-in failed. Please try again.");
       } else {
-        console.error(error); // Handle other errors (e.g., network issues)
+        setError("Sign-in failed. Please try again.");
       }
     }
   };
@@ -30,63 +39,105 @@ export default function SignIn() {
   return (
     <Container>
       <div className="form-container">
-        <div className="max-w-l mx-auto bg-white shadow-lg rounded-lg p-16 space-y-4">
-          <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
-            Sign In
-          </h2>
-
-          <form onSubmit={(event) => handleSubmit(event)}>
-            <label
-              htmlFor="email_signin"
-              className="block text-sm font-medium text-gray-700 mb-3"
-            >
-              Email
-            </label>
+        <div className="form-box">
+          <h2>Sign In</h2>
+          {error && <div className="error">{error}</div>}
+          <form onSubmit={handleSignIn}>
+            <label htmlFor="email_signin">Email</label>
             <input
               type="email"
-              className="mb-4 w-full bg-gray-100 border border-gray-100"
-              name="email"
               id="email_signin"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
+              required
             />
-            <label
-              htmlFor="password_signin"
-              className="block text-sm font-medium text-gray-700 mb-3 "
-            >
-              Password
-            </label>
+            <label htmlFor="password_signin">Password</label>
             <input
               type="password"
-              className="mb-4 w-full bg-gray-100 border border-gray-100"
-              name="password"
               id="password_signin"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
+              required
             />
-            <input
-              type="submit"
-              value="Sign In"
-              className="w-full singnIn-btn font-medium border-2 border-none text-Tan px-4 py-1 rounded hover:bg-blue-500 bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition"
-            />
+            <button type="submit">Sign In</button>
           </form>
         </div>
       </div>
       <div className="img-container">
-        <img src={student3} className="stud-img" alt="" />
+        <img src={student3} className="stud-img" alt="Student Illustration" />
       </div>
     </Container>
   );
 }
+
 const Container = styled.div`
   background: linear-gradient(to left, rgb(249, 220, 247) 50%, white 50%);
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: space-around;
+
   .stud-img {
     height: 90vh;
     width: 30vw;
   }
-  .singnIn-btn:hover {
+
+  .form-box {
+    max-width: 400px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+
+  .error {
+    color: red;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  button:hover {
+    background-color: #5a52e1;
+  }
+
+  &:disabled {
+    background-color: #b2a9ff;
+    cursor: not-allowed;
   }
 `;
