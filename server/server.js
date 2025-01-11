@@ -21,14 +21,15 @@ app.post(APIRoute.AUTH.SIGNUP, async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
 
+    // Validate input fields
     if (!name || !email || !password) {
-      return res.status(400).send("All input is required");
+      return res.status(400).json({ message: "All inputs are required" });
     }
 
     // Check if the user already exists
-    const user = await Users.findOne({ email });
-    if (user) {
-      return res.status(400).send("User already exists");
+    const existingUser = await Users.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
     }
 
     // Hash the password
@@ -40,20 +41,26 @@ app.post(APIRoute.AUTH.SIGNUP, async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      role,
+      role: role || "user", // Default role if not provided
     });
 
     await newUser.save();
 
-    res.status(201).send("User created successfully");
+    // Respond with success
+    res.status(201).json({ message: "User created successfully" });
   } catch (err) {
     console.error("Error occurred:", err);
+
+    // Handle specific errors
     if (err.message.includes("duplicate key")) {
-      return res.status(400).send("User already exists");
+      return res.status(400).json({ message: "User already exists" });
     }
-    res.status(500).send("Error processing request");
+
+    // Generic server error
+    res.status(500).json({ message: "Error processing request" });
   }
 });
+
 
 // SIGNIN Route
 app.post(APIRoute.AUTH.SIGNIN, async (req, res) => {
