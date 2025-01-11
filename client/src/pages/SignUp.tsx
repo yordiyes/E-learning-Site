@@ -3,6 +3,8 @@ import student2 from "../assets/student2.png";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -11,7 +13,7 @@ export default function SignUp() {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "",
+    role: "student",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -25,47 +27,64 @@ export default function SignUp() {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-
-    // Validate passwords match
+  
+    // Front-end validations
+    if (!formData.name || !formData.email || !formData.role || !formData.password || !formData.confirmPassword) {
+      setError("All fields are required.");
+      setIsLoading(false);
+      return;
+    }
+  
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      setError("Please enter a valid email.");
+      setIsLoading(false);
+      return;
+    }
+  
+    if (formData.password.length < 8) {
+      setError("Password must be at least 8 characters long.");
+      setIsLoading(false);
+      return;
+    }
+  
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match.");
       setIsLoading(false);
       return;
     }
-
+  
     const payload = {
       name: formData.name,
       email: formData.email,
       password: formData.password,
       role: formData.role,
     };
-
+  
     try {
-      const response = await axios.post(
-        `http://localhost:5000/api/auth/signup`,
-        payload
-      );
-      console.log(response.data);
+      const response = await axios.post(`http://localhost:5000/api/auth/signup`, payload);
+      toast.success("Signup successful! Redirecting...");
       setIsLoading(false);
-      const userRole = response.data.role || formData.role;
-
-      // Redirect to respective dashboard based on role
+      localStorage.setItem("token", response.data.token);
+  
+      // Redirect user based on role
+      const userRole = response.data?.role || formData.role;
       if (userRole === "student") {
-        navigate("/student-dashboard"); 
+        navigate("/student-dashboard");
       } else if (userRole === "teacher") {
-        navigate("/teacher-dashboard"); 
+        navigate("/teacher-dashboard");
       } else {
-        navigate("/"); 
+        navigate("/");
       }
     } catch (error) {
       setIsLoading(false);
-      if(axios.isAxiosError(error) && error.response){
-        setError(error.response?.data);
-      }else{
-        setError("Something went wrong");
+      if (axios.isAxiosError(error) && error.response) {
+        setError(error.response?.data.message || "Something went wrong.");
+      } else {
+        setError("Network error. Please try again.");
       }
     }
   };
+  
 
   return (
     <Container>
