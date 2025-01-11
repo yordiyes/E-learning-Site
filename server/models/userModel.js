@@ -1,11 +1,19 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-    name: {type: String, required: true},
-    email: {type:String, required: true, unique: true}, 
-    password: {type:String, required: true},
-    role: {type:String, default: 'user'},
-})
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { 
+      type: String, 
+      required: function() { 
+        // Password is required only if the user doesn't log in through Google
+        return !this.googleId; 
+      }
+    },
+    role: { type: String, default: "user" },
+    googleId: { type: String }, // Google ID for OAuth users
+  });
+  
 
 const Users = mongoose.model('Users', userSchema);
 

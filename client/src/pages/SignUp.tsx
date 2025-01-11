@@ -84,7 +84,19 @@ export default function SignUp() {
       }
     }
   };
-  
+
+  // Social login handlers
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:5000/api/auth/google";
+  };
+
+  const handleFacebookLogin = () => {
+    window.location.href = "http://localhost:5000/auth/facebook";
+  };
+
+  const handleGitHubLogin = () => {
+    window.location.href = "http://localhost:5000/auth/github";
+  };
 
   return (
     <Container>
@@ -183,7 +195,7 @@ export default function SignUp() {
               disabled={isLoading}
               className="submit-btn"
             />
-            
+
             <p className="text-center mt-4">
               If you already have an account{" "}
               <Link to="/signin" className="link">
@@ -192,6 +204,31 @@ export default function SignUp() {
                 </button>
               </Link>
             </p>
+
+            <div className="social-login">
+              <p className="text-center mt-6">Or sign up with</p>
+              <button
+                type="button"
+                onClick={handleGoogleLogin}
+                className="social-btn google-btn"
+              >
+                Google
+              </button>
+              <button
+                type="button"
+                onClick={handleFacebookLogin}
+                className="social-btn facebook-btn"
+              >
+                Facebook
+              </button>
+              <button
+                type="button"
+                onClick={handleGitHubLogin}
+                className="social-btn github-btn"
+              >
+                GitHub
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -277,5 +314,38 @@ const Container = styled.div`
 
   .link {
     text-decoration: none;
+  }
+
+  .social-login {
+    margin-top: 20px;
+    text-align: center;
+
+    .social-btn {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .google-btn {
+      background-color: #4285f4;
+      color: white;
+    }
+
+    .facebook-btn {
+      background-color: #3b5998;
+      color: white;
+    }
+
+    .github-btn {
+      background-color: #333;
+      color: white;
+    }
   }
 `;
