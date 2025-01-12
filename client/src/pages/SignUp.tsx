@@ -27,45 +27,45 @@ export default function SignUp() {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-  
+
     // Front-end validations
     if (!formData.name || !formData.email || !formData.role || !formData.password || !formData.confirmPassword) {
       setError("All fields are required.");
       setIsLoading(false);
       return;
     }
-  
+
     if (!/\S+@\S+\.\S+/.test(formData.email)) {
       setError("Please enter a valid email.");
       setIsLoading(false);
       return;
     }
-  
+
     if (formData.password.length < 8) {
       setError("Password must be at least 8 characters long.");
       setIsLoading(false);
       return;
     }
-  
+
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match.");
       setIsLoading(false);
       return;
     }
-  
+
     const payload = {
       name: formData.name,
       email: formData.email,
       password: formData.password,
       role: formData.role,
     };
-  
+
     try {
       const response = await axios.post(`http://localhost:5000/api/auth/signup`, payload);
       toast.success("Signup successful! Redirecting...");
       setIsLoading(false);
       localStorage.setItem("token", response.data.token);
-  
+
       // Redirect user based on role
       const userRole = response.data?.role || formData.role;
       if (userRole === "student") {
@@ -87,7 +87,7 @@ export default function SignUp() {
 
   // Social login handlers
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:5000/api/auth/google";
+    window.location.href = "http://localhost:5000/auth/google";
   };
 
   const handleFacebookLogin = () => {
@@ -103,7 +103,7 @@ export default function SignUp() {
       <div className="img-container">
         <img src={student2} className="stud-img" alt="Student" />
       </div>
-      <div className="form-container">
+      <div className="form-section">
         <div className="form-card">
           <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
             Sign Up
@@ -204,32 +204,31 @@ export default function SignUp() {
                 </button>
               </Link>
             </p>
-
-            <div className="social-login">
-              <p className="text-center mt-6">Or sign up with</p>
-              <button
-                type="button"
-                onClick={handleGoogleLogin}
-                className="social-btn google-btn"
-              >
-                Google
-              </button>
-              <button
-                type="button"
-                onClick={handleFacebookLogin}
-                className="social-btn facebook-btn"
-              >
-                Facebook
-              </button>
-              <button
-                type="button"
-                onClick={handleGitHubLogin}
-                className="social-btn github-btn"
-              >
-                GitHub
-              </button>
-            </div>
           </form>
+        </div>
+        <div className="social-login">
+          <p className="text-center mb-4 mt-4">Sign up with</p>
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="social-btn google-btn"
+          >
+            Google
+          </button>
+          <button
+            type="button"
+            onClick={handleFacebookLogin}
+            className="social-btn facebook-btn"
+          >
+            Facebook
+          </button>
+          <button
+            type="button"
+            onClick={handleGitHubLogin}
+            className="social-btn github-btn"
+          >
+            GitHub
+          </button>
         </div>
       </div>
     </Container>
@@ -246,6 +245,12 @@ const Container = styled.div`
   .stud-img {
     height: 80vh;
     width: 38vw;
+  }
+
+  .form-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
   }
 
   .form-card {
@@ -317,16 +322,18 @@ const Container = styled.div`
   }
 
   .social-login {
-    margin-top: 20px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 200px;
 
     .social-btn {
-      width: 100%;
       padding: 12px;
       margin: 10px 0;
       border-radius: 4px;
       cursor: pointer;
       font-size: 16px;
+      text-align: center;
 
       &:hover {
         opacity: 0.8;

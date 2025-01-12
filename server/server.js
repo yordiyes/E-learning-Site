@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Users from "./models/userModel.js";
 import APIRoute from "./routes/APIRoutes.js";
+import passport from "./passport.js"; 
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -15,6 +16,40 @@ const secretKey = process.env.SECRET_KEY;
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+
+app.use(passport.initialize());
+
+app.get(
+  APIRoute.AUTH.GOOGLE_LOGIN,
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+// Handle Google callback
+app.get(
+  APIRoute.AUTH.GOOGLE_CALLBACK,
+  passport.authenticate("google", { session: false }),
+  (req, res) => {
+    // Generate JWT token for social login
+    const token = jwt.sign(
+      { userId: req.user._id, role: req.user.role }, // Payload
+      secretKey, // Secret key
+      { expiresIn: "1h" } // Expiry time
+    );
+
+    let redirectTo = ""
+
+    if(req.user.role === "student")
+      redirectTo = "student-dashboard"
+    else{
+      redirectTo = "teacher-dashboard"
+    }
+
+    // Redirect the user to the homepage with the token in the URL
+    res.redirect(`http://localhost:5173/${redirectTo}/?token=${token}`);
+  }
+);
+
 
 // SIGNUP Route
 app.post(APIRoute.AUTH.SIGNUP, async (req, res) => {
