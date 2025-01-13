@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import search from "../assets/education.png";
 
 export default function Coureses() {
   return (
@@ -18,14 +19,29 @@ export default function Coureses() {
           </button>
         </div>
       </div>
+      <div className="third-container">
+        <div className="inner">
+          <img className="img2" src={search} alt="search" />
+        </div>
+        <div className="inner">
+          <h2>Benefits from our online platform</h2>
+          <ul>
+            <li>Online Degrees</li>
+            <li>Online Degrees</li>
+            <li>Online Degrees</li>
+            <li>Online Degrees</li>
+          </ul>
+        </div>
+      </div>
     </Container>
   );
 }
 
 const Container = styled.div`
-  background-color: rgb(236, 232, 236);
+  background-color: rgb(249, 220, 237);
   min-height: 92vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
@@ -34,6 +50,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
   }
   .search-container {
     display: flex;
@@ -53,7 +70,7 @@ const Container = styled.div`
     color: #333;
     border-radius: 5px;
     width: 380px;
-    height: 45px
+    height: 45px;
   }
   .search-btn {
     font-size: 22px;
@@ -62,5 +79,24 @@ const Container = styled.div`
     width: 120px;
     height: 45px;
   }
-
+  .search-btn:hover {
+    color: #eeddff;
+  }
+  .img2 {
+    width: 450px;
+    height: 450px
+  }
+  .third-container {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .inner {
+    min-height: 52vh;
+    margin: 20px 50px;
+    align-items: center;
+    justify-content: center;
+  }
 `;
