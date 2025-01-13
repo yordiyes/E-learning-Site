@@ -5,6 +5,7 @@ import SignUp from "./pages/SignUp.tsx";
 import SignIn from "./pages/SignIn.tsx";
 import StudentDashboard from "./pages/StudentDashboard.tsx";
 import TeacherDashboard from "./pages/TeacherDashboard.tsx";
+import Search from "./pages/Search.tsx"
 
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
             <>
               <NavBar />
               <Show />
+              <Search/>
             </>
           }
         />{" "}
