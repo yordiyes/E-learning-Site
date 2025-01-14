@@ -24,14 +24,47 @@ export default function Coureses() {
           <img className="img2" src={search} alt="search" />
         </div>
         <div className="inner">
-          <h1 className="text-2xl font-bold my-7">
-            <span className="text-blue-600">Benefits</span> From Our Online
-            Platform
+          <h1 className="text-3xl font-bold my-7">
+            <span className="text-fuchsia-500">Benefits</span> From Our Online
+            Learning
           </h1>
           <div className="in-outer">
-            <i className="bx bxs-graduation mx-7 text-6xl"></i>
+            <i className=" bx bxs-graduation mx-7 text-6xl text-purple-700"></i>
             <div className="in-inner">
               <h2 className="my-1 text-xl font-bold">Online Degrees</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. <br />At
+                illum enim magni?
+              </p>
+            </div>
+          </div>
+
+          <div className="in-outer my-4">
+            <i className="bx bx-book-open mx-7 text-6xl text-red-400"></i>
+            <div className="in-inner">
+              <h2 className="my-1 text-xl font-bold">Short Courses</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. <br />At
+                illum enim magni?
+              </p>
+            </div>
+          </div>
+
+          <div className="in-outer">
+            <i className="bx bxs-user-circle mx-7 text-6xl text-purple-700"></i>
+            <div className="in-inner">
+              <h2 className="my-1 text-xl font-bold">Training From Experts</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. <br />At
+                illum enim magni?
+              </p>
+            </div>
+          </div>
+
+          <div className="in-outer">
+            <i className="bx bx-play-circle mx-7 text-6xl text-red-400"></i>
+            <div className="in-inner">
+              <h2 className="my-1 text-xl font-bold">1.5k+ Video Courses</h2>
               <p>
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. <br />At
                 illum enim magni?
@@ -87,7 +120,7 @@ const Container = styled.div`
     height: 45px;
   }
   .search-btn:hover {
-    color: #eeddff;
+    color:rgb(34, 33, 35);
   }
   .img2 {
     width: 450px;
