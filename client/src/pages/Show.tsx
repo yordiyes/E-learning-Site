@@ -16,7 +16,7 @@ export default function Show() {
             dignissimos nisi dolor illo minus similique quos expedita facilis.
             Accusantium, delectus assumenda.
           </p>
-          <button className="border-2 border-none text-Tan px-4 mx-12 py-2 text-2xl rounded hover:bg-blue-500 bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition">
+          <button className="border-2 border-none text-Tan font-medium px-4 mx-12 py-2 text-2xl rounded hover:bg-blue-500 bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition">
             Enroll Now
           </button>
           <a href="#" className="link">

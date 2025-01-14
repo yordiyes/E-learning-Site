@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default function StudentDashboard() {
   function logout() {
     // Remove the token from localStorage
-    localStorage.removeItem("token");
+    localStorage.removeItem("authToken");
 
     // Redirect to the sign-in page
     window.location.href = "/";

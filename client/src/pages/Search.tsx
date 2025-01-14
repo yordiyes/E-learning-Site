@@ -106,7 +106,7 @@ const Container = styled.div`
     border: none;
     outline: none;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 700;
     color: #333;
     border-radius: 5px;
     width: 380px;
