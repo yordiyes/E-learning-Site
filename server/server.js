@@ -32,9 +32,9 @@ app.get(
   (req, res) => {
     // Generate JWT token for social login
     const token = jwt.sign(
-      { userId: req.user._id, role: req.user.role }, // Payload
-      secretKey, // Secret key
-      { expiresIn: "1h" } // Expiry time
+      { userId: req.user._id, role: req.user.role }, 
+      secretKey, 
+      { expiresIn: "1h" } 
     );
 
     let redirectTo = ""
@@ -121,9 +121,9 @@ app.post(APIRoute.AUTH.SIGNIN, async (req, res) => {
 
     // Generate a JWT token
     const token = jwt.sign(
-      { userId: user._id, role: user.role }, // Payload
-      secretKey, // Secret key
-      { expiresIn: "1h" } // Expiry time
+      { userId: user._id, role: user.role }, 
+      secretKey, 
+      { expiresIn: "1h" } 
     );
 
     // Respond with the token and user details
