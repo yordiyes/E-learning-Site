@@ -24,13 +24,20 @@ export default function Coureses() {
           <img className="img2" src={search} alt="search" />
         </div>
         <div className="inner">
-          <h2>Benefits from our online platform</h2>
-          <ul>
-            <li>Online Degrees</li>
-            <li>Online Degrees</li>
-            <li>Online Degrees</li>
-            <li>Online Degrees</li>
-          </ul>
+          <h1 className="text-2xl font-bold my-7">
+            <span className="text-blue-600">Benefits</span> From Our Online
+            Platform
+          </h1>
+          <div className="in-outer">
+            <i className="bx bxs-graduation mx-7 text-6xl"></i>
+            <div className="in-inner">
+              <h2 className="my-1 text-xl font-bold">Online Degrees</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. <br />At
+                illum enim magni?
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </Container>
@@ -84,7 +91,7 @@ const Container = styled.div`
   }
   .img2 {
     width: 450px;
-    height: 450px
+    height: 450px;
   }
   .third-container {
     display: flex;
@@ -98,5 +105,14 @@ const Container = styled.div`
     margin: 20px 50px;
     align-items: center;
     justify-content: center;
+  }
+  .in-outer {
+    display: flex;
+    text-align: left;
+  }
+  .in-inner {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
   }
 `;
