@@ -18,7 +18,9 @@ export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
@@ -29,7 +31,13 @@ export default function SignUp() {
     setError(null);
 
     // Front-end validations
-    if (!formData.name || !formData.email || !formData.role || !formData.password || !formData.confirmPassword) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.role ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
       setError("All fields are required.");
       setIsLoading(false);
       return;
@@ -61,20 +69,15 @@ export default function SignUp() {
     };
 
     try {
-      const response = await axios.post(`http://localhost:5000/api/auth/signup`, payload);
+      const response = await axios.post(
+        `http://localhost:5000/api/auth/signup`,
+        payload
+      );
       toast.success("Signup successful! Redirecting...");
       setIsLoading(false);
       localStorage.setItem("token", response.data.token);
 
-      // Redirect user based on role
-      const userRole = response.data?.role || formData.role;
-      if (userRole === "student") {
-        navigate("/student-dashboard");
-      } else if (userRole === "teacher") {
-        navigate("/teacher-dashboard");
-      } else {
-        navigate("/");
-      }
+      navigate("/signin");
     } catch (error) {
       setIsLoading(false);
       if (axios.isAxiosError(error) && error.response) {
@@ -151,7 +154,6 @@ export default function SignUp() {
                 onChange={handleInputChange}
                 className="input-field"
               >
-                <option value="">Select a role</option>
                 <option value="student">Student</option>
                 <option value="teacher">Teacher</option>
               </select>
@@ -179,7 +181,7 @@ export default function SignUp() {
               <input
                 type="password"
                 name="confirmPassword"
-                id="confirm-password"
+                id="confirmPassword"
                 placeholder="Confirm Password"
                 value={formData.confirmPassword}
                 onChange={handleInputChange}

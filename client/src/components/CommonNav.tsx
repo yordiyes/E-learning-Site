@@ -6,6 +6,7 @@ export default function NavBar() {
   function logout() {
     // Remove the token from localStorage
     localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
 
     navigate("/");
   }

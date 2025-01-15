@@ -32,24 +32,26 @@ export default function SignIn() {
       }
 
       // Store the token and role securely
-      localStorage.setItem("authToken", token);
       localStorage.setItem("userRole", user.role);
+      localStorage.setItem("token", token);
 
       console.log("User signed in successfully:", user);
+      console.log(user.role);
 
-      console.log(user.role)
       // Redirect based on user role
       if (user.role === "student") {
         navigate("/student-dashboard");
       } else if (user.role === "teacher") {
         navigate("/teacher-dashboard");
       } else {
-        navigate("/"); 
+        navigate("/");
       }
     } catch (err) {
       if (axios.isAxiosError(err)) {
         console.error("Axios error:", err.response); // Log the error for debugging
-        setError(err.response?.data?.message || "Sign-in failed. Please try again.");
+        setError(
+          err.response?.data?.message || "Sign-in failed. Please try again."
+        );
       } else {
         console.error("General error:", err); // Log any other errors
         setError("Sign-in failed. Please try again.");

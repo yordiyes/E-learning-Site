@@ -4,21 +4,76 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Users from "./models/userModel.js";
 import APIRoute from "./routes/APIRoutes.js";
-import passport from "./passport.js"; 
+import passport from "./passport.js";
 import dotenv from "dotenv";
 dotenv.config();
 
-
 const port = 5000;
 const saltRounds = 10;
-const secretKey = process.env.SECRET_KEY; 
+const secretKey = process.env.SECRET_KEY;
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-
 app.use(passport.initialize());
+
+// Middleware to verify JWT
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(403).json({ message: "Access token is required" });
+  }
+
+  try {
+    // Verify the token
+    const decoded = jwt.verify(token, secretKey);
+    req.user = decoded;
+    
+    next();
+  } catch (err) {
+    console.error("JWT verification failed:", err);
+    res.status(401).json({ message: "Invalid or expired token" });
+  }
+};
+
+const verifyRole = (requiredRole) => (req, res, next) => {
+  console.log("User role:", req.user?.role); // Debugging
+  if (req.user?.role !== requiredRole) {
+    return res.status(403).json({ message: "Access denied" });
+  }
+  next();
+};
+
+app.use("/protected", verifyToken);
+app.use("/student-dashboard", verifyToken, verifyRole("student"));
+app.use("/teacher-dashboard", verifyToken, verifyRole("teacher"));
+
+// Protect specific routes with both verifyToken and verifyRole
+app.get(
+  "/student-dashboard",
+  verifyToken, 
+  verifyRole("student"),
+  (req, res) => {
+    res.status(200).json({ message: "Welcome to the student dashboard" });
+  }
+);
+
+app.get(
+  "/teacher-dashboard",
+  verifyToken, 
+  verifyRole("teacher"), 
+  (req, res) => {
+    res.status(200).json({ message: "Welcome to the teacher dashboard" });
+  }
+);
+
+// Generic protected route example
+app.get("/protected", verifyToken, (req, res) => {
+  res.status(200).json({ message: "Access granted to protected route" });
+});
+
 
 app.get(
   APIRoute.AUTH.GOOGLE_LOGIN,
@@ -32,24 +87,22 @@ app.get(
   (req, res) => {
     // Generate JWT token for social login
     const token = jwt.sign(
-      { userId: req.user._id, role: req.user.role }, 
-      secretKey, 
-      { expiresIn: "1h" } 
+      { userId: req.user._id, role: req.user.role },
+      secretKey,
+      { expiresIn: "1h" }
     );
 
-    let redirectTo = ""
+    let redirectTo = "";
 
-    if(req.user.role === "student")
-      redirectTo = "student-dashboard"
-    else{
-      redirectTo = "teacher-dashboard"
+    if (req.user.role === "student") redirectTo = "student-dashboard";
+    else {
+      redirectTo = "teacher-dashboard";
     }
 
     // Redirect the user to the homepage with the token in the URL
     res.redirect(`http://localhost:5173/${redirectTo}/?token=${token}`);
   }
 );
-
 
 // SIGNUP Route
 app.post(APIRoute.AUTH.SIGNUP, async (req, res) => {
@@ -96,7 +149,6 @@ app.post(APIRoute.AUTH.SIGNUP, async (req, res) => {
   }
 });
 
-
 // SIGNIN Route
 app.post(APIRoute.AUTH.SIGNIN, async (req, res) => {
   const { email, password } = req.body;
@@ -115,16 +167,13 @@ app.post(APIRoute.AUTH.SIGNIN, async (req, res) => {
     // Compare the entered password with the hashed password in the database
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).send("Invalid credentials");
+      return res.status(401).send("Invalid Password");
     }
 
-
     // Generate a JWT token
-    const token = jwt.sign(
-      { userId: user._id, role: user.role }, 
-      secretKey, 
-      { expiresIn: "1h" } 
-    );
+    const token = jwt.sign({ userId: user._id, role: user.role }, secretKey, {
+      expiresIn: "1h",
+    });
 
     // Respond with the token and user details
     res.status(200).json({
