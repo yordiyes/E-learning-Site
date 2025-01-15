@@ -19,7 +19,11 @@ export default function Show() {
           <button className="border-2 border-none text-Tan font-medium px-4 mx-12 py-2 text-2xl rounded hover:bg-blue-500 bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition">
             Enroll Now
           </button>
-          <a href="#" className="link">
+          <a
+            href="https://youtu.be/ZPs3URGs0KQ"
+            target="blank_"
+            className="link"
+          >
             {" "}
             <i className="bx bx-play-circle text-xl mx-1 text-fuchsia-500"></i>
             <span className=" underline font-medium">What's E-learning?</span>
