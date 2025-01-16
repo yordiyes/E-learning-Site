@@ -7,6 +7,7 @@ import StudentDashboard from "./pages/StudentDashboard.tsx";
 import TeacherDashboard from "./pages/TeacherDashboard.tsx";
 import Sponsors from "./pages/Sponsors.tsx";
 import Search from "./pages/Search.tsx"
+import Courses from "./pages/Courses.tsx";
 
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
               <Show />
               <Sponsors/>
               <Search/>
+              <Courses/>
             </>
           }
         />{" "}
