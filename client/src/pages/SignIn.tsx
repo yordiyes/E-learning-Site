@@ -2,17 +2,18 @@ import { useState } from "react";
 import styled from "styled-components";
 import student3 from "../assets/student3.png";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
+  // Handle form-based sign-in
   const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault();
 
     try {
       const response = await axios.post(
@@ -25,20 +26,18 @@ export default function SignIn() {
 
       const { token, user } = response.data;
 
-      // Check if token and user data exist
       if (!token || !user) {
         setError("Authentication failed. Please try again.");
         return;
       }
 
-      // Store the token and role securely
-      localStorage.setItem("userRole", user.role);
+      // Store token and role in localStorage
       localStorage.setItem("token", token);
+      localStorage.setItem("userRole", user.role);
 
       console.log("User signed in successfully:", user);
-      console.log(user.role);
 
-      // Redirect based on user role
+      // Navigate based on user role
       if (user.role === "student") {
         navigate("/student-dashboard");
       } else if (user.role === "teacher") {
@@ -48,14 +47,51 @@ export default function SignIn() {
       }
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        console.error("Axios error:", err.response); // Log the error for debugging
+        console.error("Axios error:", err.response);
         setError(
           err.response?.data?.message || "Sign-in failed. Please try again."
         );
       } else {
-        console.error("General error:", err); // Log any other errors
+        console.error("General error:", err);
         setError("Sign-in failed. Please try again.");
       }
+    }
+  };
+
+  // Handle Google sign-in
+  const handleGoogleLogin = async () => {
+    try {
+      // Redirect to Google authentication endpoint
+      const googleAuthUrl = "http://localhost:5000/auth/google";
+      window.location.href = googleAuthUrl;
+
+      // On successful authentication, handle callback and retrieve token + user
+      const response = await axios.get("http://localhost:5000/auth/google/callback");
+
+      const { token, user } = response.data;
+
+      if (!token || !user) {
+        setError("Google sign-in failed. Please try again.");
+        return;
+      }
+
+      // Store token and role in localStorage
+      localStorage.setItem("token", token);
+      localStorage.setItem("userRole", user.role);
+
+      console.log("User signed in successfully via Google:", user);
+
+      // Navigate based on user role
+      if (user.role === "student") {
+        navigate("/student-dashboard");
+      } else if (user.role === "teacher") {
+        navigate("/teacher-dashboard");
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      console.error("Google login error:", err);
+      setError("Google sign-in failed. Please try again.");
     }
   };
 
@@ -86,6 +122,16 @@ export default function SignIn() {
             />
             <button type="submit">Sign In</button>
           </form>
+        </div>
+        <div className="social-login">
+          <p className="mb-2 mt-4">Sign in with</p>
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="social-btn google-btn"
+          >
+            Google
+          </button>
         </div>
       </div>
       <div className="img-container">
@@ -162,5 +208,30 @@ const Container = styled.div`
   &:disabled {
     background-color: #b2a9ff;
     cursor: not-allowed;
+  }
+
+  .social-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 200px;
+
+    .social-btn {
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      text-align: center;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .google-btn {
+      background-color: #4285f4;
+      color: white;
+    }
   }
 `;

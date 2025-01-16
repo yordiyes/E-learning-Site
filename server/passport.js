@@ -1,3 +1,4 @@
+// passport.js configuration
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import Users from "./models/userModel.js";
@@ -21,6 +22,7 @@ passport.use(
             googleId: profile.id,
             name: profile.displayName,
             email: profile.emails[0].value,
+            role: "student", // Default role for new users
           });
         }
         return done(null, user);
@@ -31,7 +33,6 @@ passport.use(
   )
 );
 
-// Serialize and deserialize user (optional, but helpful for session management)
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser((id, done) => Users.findById(id, done));
 
