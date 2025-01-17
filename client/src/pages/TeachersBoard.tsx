@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import instructor from "../assets/instructor.jpg";
+import instructor from "../assets/instructor.png";
 
 export default function Coureses() {
   const navigate = useNavigate();

@@ -30,7 +30,7 @@ const verifyToken = (req, res, next) => {
     // Verify the token
     const decoded = jwt.verify(token, secretKey);
     req.user = decoded;
-    
+
     next();
   } catch (err) {
     console.error("JWT verification failed:", err);
@@ -53,7 +53,7 @@ app.use("/teacher-dashboard", verifyToken, verifyRole("teacher"));
 // Protect specific routes with both verifyToken and verifyRole
 app.get(
   "/student-dashboard",
-  verifyToken, 
+  verifyToken,
   verifyRole("student"),
   (req, res) => {
     res.status(200).json({ message: "Welcome to the student dashboard" });
@@ -62,8 +62,8 @@ app.get(
 
 app.get(
   "/teacher-dashboard",
-  verifyToken, 
-  verifyRole("teacher"), 
+  verifyToken,
+  verifyRole("teacher"),
   (req, res) => {
     res.status(200).json({ message: "Welcome to the teacher dashboard" });
   }
@@ -74,10 +74,12 @@ app.get("/protected", verifyToken, (req, res) => {
   res.status(200).json({ message: "Access granted to protected route" });
 });
 
-
 app.get(
   APIRoute.AUTH.GOOGLE_LOGIN,
-  passport.authenticate("google", { scope: ["profile", "email"] })
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+    prompt: "select_account",
+  })
 );
 
 // Handle Google callback
@@ -99,7 +101,6 @@ app.get(
       redirectTo = "teacher-dashboard";
     }
 
-    // Redirect the user to the homepage with the token in the URL
     res.redirect(`http://localhost:5173/${redirectTo}/?token=${token}`);
   }
 );

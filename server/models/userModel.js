@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
         return !this.googleId; 
       }
     },
-    role: { type: String, default: "user" },
+    role: { type: String, default: "student" },
     googleId: { type: String }, // Google ID for OAuth users
   });
   

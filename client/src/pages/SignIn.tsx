@@ -64,31 +64,6 @@ export default function SignIn() {
       // Redirect to Google authentication endpoint
       const googleAuthUrl = "http://localhost:5000/auth/google";
       window.location.href = googleAuthUrl;
-
-      // On successful authentication, handle callback and retrieve token + user
-      const response = await axios.get("http://localhost:5000/auth/google/callback");
-
-      const { token, user } = response.data;
-
-      if (!token || !user) {
-        setError("Google sign-in failed. Please try again.");
-        return;
-      }
-
-      // Store token and role in localStorage
-      localStorage.setItem("token", token);
-      localStorage.setItem("userRole", user.role);
-
-      console.log("User signed in successfully via Google:", user);
-
-      // Navigate based on user role
-      if (user.role === "student") {
-        navigate("/student-dashboard");
-      } else if (user.role === "teacher") {
-        navigate("/teacher-dashboard");
-      } else {
-        navigate("/");
-      }
     } catch (err) {
       console.error("Google login error:", err);
       setError("Google sign-in failed. Please try again.");
