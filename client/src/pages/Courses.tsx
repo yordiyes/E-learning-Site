@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import pc from "../assets/pc.jpg";
-
+// import pc2 from "../assets/pc2.jpg";
+import pc3 from "../assets/pc3.jpg";
+import me from "../assets/me.png"
 export default function Courses() {
   return (
     <Container className="bg-gradient-to-r from-purple-500 to-pink-400">
@@ -17,157 +19,73 @@ export default function Courses() {
           </p>
         </div>
         <div className="inner-two mt-10">
-          {[1, 2, 3].map((_, index) => (
-            <div key={index} className="card">
-              <img src={pc} alt="Web Design & Development" />
-              <div className="badge">Web Design</div>
+          {[
+            {
+              id: 1,
+              name: "Web Design & Development",
+              image: pc,
+              badge: "Web Design",
+              rating: 4.9,
+              classes: 25,
+              students: 185,
+              price: 560,
+              author: {
+                name: "J. Morgan",
+                avatar: me,
+              },
+            },
+            {
+              id: 2,
+              name: "UI/UX Design Fundamentals",
+              image: pc,
+              badge: "UI/UX Design",
+              rating: 4.8,
+              classes: 20,
+              students: 150,
+              price: 460,
+              author: {
+                name: "A. Smith",
+                avatar: me,
+              },
+            },
+            {
+              id: 3,
+              name: "React Development",
+              image: pc3,
+              badge: "React",
+              rating: 4.7,
+              classes: 30,
+              students: 210,
+              price: 760,
+              author: {
+                name: "C. Taylor",
+                avatar:me,
+              },
+            },
+          ].map((course) => (
+            <div key={course.id} className="card">
+              <img src={course.image} alt={course.name} />
+              <div className="badge">{course.badge}</div>
               <div className="rating">
-                <span>4.{9 - index}</span>
+                <span>{course.rating}</span>
                 <span>⭐</span>
               </div>
-              <h1>Web Design & Development</h1>
+              <h1>{course.name}</h1>
               <p className="text-gray-500 text-sm flex justify-between my-2">
-                <span className="mx-8">{25 - index * 10} Classes</span>
-                <span className="mx-10">{185 - index * 50} Students</span>
+                <span className="mx-5"><i className='bx bx-book-open text-violet-500 mx-2 font-bold'></i>{course.classes} Classes</span>
+                <span className="mx-5"><i className='bx bxs-user text-violet-500 mx-2 font-bold'></i>{course.students} Students</span>
               </p>
               <div className="card-footer">
-                <span className="price">${560 + index * 100}.00</span>
+                <span className="price">${course.price}.00</span>
                 <div className="author">
-                  <img src="https://via.placeholder.com/30" alt="J. Morgan" />
-                  <span>J. Morgan</span>
+                  <img src={course.author.avatar} alt={course.author.name} />
+                  <span>{course.author.name}</span>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-
-      {/* <div className="outer">
-        <div className="inner-one px-20">
-          <h1 className="text-4xl font-semibold text-fuchsia-200">
-            Our Popular Couses
-          </h1>
-          <p className="font-semibold text-fuchsia-200 text-wrap">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptatibus, <br />
-            provident repellat ex cupiditate quisquam quo quod itaque adipisci
-            et, <br /> unde, sequi fugit. Ad, libero amet dolore beatae eos
-            distinctio velit.
-          </p>
-        </div>
-        <div className="inner-two mt-10">
-          <div className="card rounded-lg mx-5 shadow-lg bg-white p-5 relative">
-            <img
-              src={pc}
-              className="rounded-lg mb-4 w-full"
-              alt="Web Design & Development"
-            />
-            <div className="badge absolute top-2 left-2 bg-purple-200 text-purple-800 px-3 py-1 rounded-full text-sm">
-              Web Design
-            </div>
-            <div className="rating absolute top-2 right-2 bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full text-sm flex items-center gap-1">
-              <span>4.9</span>
-              <span>⭐</span>
-            </div>
-            <h1 className="text-xl font-bold text-gray-800">
-              Web Design & Development
-            </h1>
-            <p className="text-gray-500 text-sm flex justify-between my-2">
-              <span>25 Classes</span>
-              <span>185 Students</span>
-            </p>
-            <div className="flex justify-between items-center mt-4">
-              <span className="text-lg font-semibold text-purple-800">
-                $560.00
-              </span>
-              <div className="flex items-center ">
-                <img
-                  src="https://via.placeholder.com/30"
-                  alt="J. Morgan"
-                  className="w-8 h-8 rounded-full"
-                />
-                <span className="ml-2 text-sm text-gray-800 font-medium">
-                  J. Morgan
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="card rounded-lg mx-5 shadow-lg bg-white p-5 relative">
-            <img
-              src={pc}
-              className="rounded-lg mb-4 w-full"
-              alt="Web Design & Development"
-            />
-            <div className="badge absolute top-2 left-2 bg-purple-200 text-purple-800 px-3 py-1 rounded-full text-sm">
-              Web Design
-            </div>
-            <div className="rating absolute top-2 right-2 bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full text-sm flex items-center gap-1">
-              <span>4.7</span>
-              <span>⭐</span>
-            </div>
-            <h1 className="text-xl font-bold text-gray-800">
-              Web Design & Development
-            </h1>
-            <p className="text-gray-500 text-sm flex justify-between my-2">
-              <span>15 Classes</span>
-              <span>95 Students</span>
-            </p>
-            <div className="flex justify-between items-center mt-4">
-              <span className="text-lg font-semibold text-purple-800">
-                $820.00
-              </span>
-              <div className="flex items-center ">
-                <img
-                  src="https://via.placeholder.com/30"
-                  alt="J. Morgan"
-                  className="w-8 h-8 rounded-full"
-                />
-                <span className="ml-2 text-sm text-gray-800 font-medium">
-                  J. Morgan
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="card rounded-lg mx-5 shadow-lg bg-white p-5 relative">
-            <img
-              src={pc}
-              className="rounded-lg mb-4 w-full"
-              alt="Web Design & Development"
-            />
-            <div className="badge absolute top-2 left-2 bg-purple-200 text-purple-800 px-3 py-1 rounded-full text-sm">
-              Web Design
-            </div>
-            <div className="rating absolute top-2 right-2 bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full text-sm flex items-center gap-1">
-              <span>4.6</span>
-              <span>⭐</span>
-            </div>
-            <h1 className="text-xl font-bold text-gray-800">
-              Web Design & Development
-            </h1>
-            <p className="text-gray-500 text-sm flex justify-between my-2">
-              <span>33 Classes</span>
-              <span>200 Students</span>
-            </p>
-            <div className="flex justify-between items-center mt-4">
-              <span className="text-lg font-semibold text-purple-800">
-                $760.00
-              </span>
-              <div className="flex items-center ">
-                <img
-                  src="https://via.placeholder.com/30"
-                  alt="J. Morgan"
-                  className="w-8 h-8 rounded-full"
-                />
-                <span className="ml-2 text-sm text-gray-800 font-medium">
-                  J. Morgan
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </Container>
   );
 }
@@ -188,7 +106,7 @@ const Container = styled.div`
     text-align: center;
     max-width: 800px;
     padding: 0 20px;
-    margin-left: 100px;
+    margin-left: 170px;
   }
 
   .inner-two {
@@ -203,6 +121,7 @@ const Container = styled.div`
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     padding: 20px;
+    margin: 0 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
