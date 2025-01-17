@@ -8,30 +8,30 @@ export default function NavBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between py-8 items-center h-12">
           <div className="flex-shrink-0">
-            <h1 className="text-2xl text-3xl py-7 font-bold"><a href="http:/"></a>Etech</h1>
+            <h1 className="text-2xl text-3xl py-7 font-bold"><a href="http:/">Etech</a></h1>
           </div>
 
           <div className="md-flex">
             <a
-              href=""
+              href="#"
               className="hover:bg-white-700 px-3 py-2 rounded-md text-base font-medium"
             >
               Courses
             </a>
             <a
-              href=""
+              href="#"
               className="hover:bg-white-700 px-3 py-2 rounded-md text-l font-medium"
             >
               Teachers
             </a>
             <a
-              href=""
+              href="#"
               className="hover:bg-white-700 px-3 py-2 rounded-md text-l font-medium"
             >
               Offers
             </a>
             <a
-              href=""
+              href="#"
               className="hover:bg-white-700 px-3 py-2 rounded-md text-l font-medium"
             >
               Contacts

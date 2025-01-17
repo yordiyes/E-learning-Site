@@ -1,8 +1,22 @@
 import styled from "styled-components";
 import SideBar from "../components/TeachSideBar";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
+const TeacherDashboardValidate = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userRole = localStorage.getItem("userRole");
+
+    if (userRole !== "teacher") {
+      console.warn("Unauthorized access attempt.");
+      navigate("/student-dashboard"); 
+    }
+  }, []);
+};
 export default function TeacherDashboard() {
+  TeacherDashboardValidate();
   useEffect(() => {
     // Extract token from URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -18,10 +32,7 @@ export default function TeacherDashboard() {
       localStorage.setItem("userRole", userRole);
 
       console.log("Token and role saved:", { token, userRole });
-    } else {
-      // If no token is found, redirect to login page
-      window.location.href = "/signin";
-    }
+    } 
   }, []);
   return (
     <Container >

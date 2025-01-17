@@ -5,12 +5,25 @@ export default function SideBar() {
   const navigate = useNavigate();
 
   function logout() {
-    // Remove the token from localStorage
-    localStorage.removeItem("token");
-    localStorage.removeItem("userRole");
-
-    navigate("/");
+    try {
+      // Clear localStorage and redirect
+      localStorage.removeItem("token");
+      localStorage.removeItem("userRole");
+      navigate("/");
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
   }
+  
+  const currentPath = window.location.pathname;
+  const menuItems = [
+    {icon: <i className='bx bxs-dashboard mr-2'></i>, name: "Dashboard", path: "/student-dashboard" },
+    {icon: <i className='bx bx-book mr-2'></i>, name: "Courses", path: "/courses" },
+    {icon: <i className='bx bxs-user-pin mr-2'></i>, name: "Teachers", path: "/teachers" },
+    {icon: <i className='bx bx-question-mark mr-2'></i>, name: "Assessment", path: "/assessment" },
+    {icon: <i className='bx bx-badge-check mr-2'></i>, name: "Progress", path: "/progress" },
+    {icon: <i className='bx bxs-comment-detail mr-2'></i>, name: "Contacts", path: "/contacts" },
+  ];
 
   return (
     <SidebarContainer>
@@ -18,21 +31,15 @@ export default function SideBar() {
         <h1 className="text-3xl font-bold text-center my-6">Etech</h1>
       </div>
       <nav className="menu">
-        <a href="#" className="menu-item">
-          Courses
-        </a>
-        <a href="#" className="menu-item">
-          Teachers
-        </a>
-        <a href="#" className="menu-item">
-          Assessment
-        </a>
-        <a href="#" className="menu-item">
-          Progress
-        </a>
-        <a href="#" className="menu-item">
-          Contacts
-        </a>
+        {menuItems.map((item, index) => (
+          <a
+            href={item.path}
+            key={index}
+            className={`menu-item ${currentPath === item.path ? "active" : ""}`}
+          >
+            {item.icon}{item.name}
+          </a>
+        ))}
       </nav>
       <div className="logout">
         <button onClick={logout} className="logout-btn">
@@ -46,8 +53,8 @@ export default function SideBar() {
 const SidebarContainer = styled.div`
   width: 250px;
   height: 100vh;
-  background-color: rgb(57, 37, 62); /* Gray-800 */
-  color: #f6d6d6; /* Custom color */
+  background-color: rgb(76, 53, 159); 
+  color: #f6d6d6;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -76,6 +83,9 @@ const SidebarContainer = styled.div`
 
   .menu-item:hover {
     background-color: rgba(255, 255, 255, 0.1);
+  }
+  .menu-item.active {
+  background-color: rgba(255, 255, 255, 0.2); /* Example: Highlight the active link */
   }
 
   .logout {
