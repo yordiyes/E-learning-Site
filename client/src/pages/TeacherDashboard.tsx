@@ -1,17 +1,23 @@
 import styled from "styled-components";
-import CommonNav from "../components/CommonNav";
+import SideBar from "../components/TeachSideBar";
 
 export default function TeacherDashboard() {
   return (
-    <Container>
-      <CommonNav />
-
-      <p>TeacherDashboard</p>
+    <Container >
+      <div>
+        <SideBar />
+      </div>
+      <div className="inner-container">
+        <p>TeacherDashboard</p>
+      </div>
     </Container>
   );
 }
 const Container = styled.div`
-  background: #ffeeff;
+  background:rgb(160, 139, 160);
   height: 100vh;
-  padding: 10px;
+  display: flex;
+  .inner-container {
+    padding: 15px;
+  }
 `;
