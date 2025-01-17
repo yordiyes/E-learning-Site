@@ -11,7 +11,10 @@ const TeacherDashboardValidate = () => {
 
     if (userRole !== "teacher") {
       console.warn("Unauthorized access attempt.");
-      navigate("/student-dashboard"); 
+      if (!sessionStorage.getItem("redirected")) {
+        sessionStorage.setItem("redirected", "true");
+        navigate("/student-dashboard");
+      }
     }
   }, []);
 };
