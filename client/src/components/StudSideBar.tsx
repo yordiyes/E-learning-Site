@@ -5,30 +5,56 @@ export default function SideBar() {
   const navigate = useNavigate();
 
   function logout() {
-    try {
-      // Clear localStorage and redirect
-      localStorage.removeItem("token");
-      localStorage.removeItem("userRole");
-      navigate("/");
-    } catch (error) {
-      console.error("Error during logout:", error);
+    if (window.confirm("Are you sure you want to log out?")) {
+      try {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userRole");
+        navigate("/");
+      } catch (error) {
+        console.error("Error during logout:", error);
+      }
     }
   }
   
   const currentPath = window.location.pathname;
   const menuItems = [
-    {icon: <i className='bx bxs-dashboard mr-2'></i>, name: "Dashboard", path: "/student-dashboard" },
-    {icon: <i className='bx bx-book mr-2'></i>, name: "Courses", path: "/courses" },
-    {icon: <i className='bx bxs-user-pin mr-2'></i>, name: "Teachers", path: "/teachers" },
-    {icon: <i className='bx bx-question-mark mr-2'></i>, name: "Assessment", path: "/assessment" },
-    {icon: <i className='bx bx-badge-check mr-2'></i>, name: "Progress", path: "/progress" },
-    {icon: <i className='bx bxs-comment-detail mr-2'></i>, name: "Contacts", path: "/contacts" },
+    {
+      icon: <i className="bx bxs-dashboard mr-2"></i>,
+      name: "Dashboard",
+      path: "/student-dashboard",
+    },
+    {
+      icon: <i className="bx bx-book mr-2"></i>,
+      name: "Courses",
+      path: "/courses",
+    },
+    {
+      icon: <i className="bx bxs-user-pin mr-2"></i>,
+      name: "Teachers",
+      path: "/teachers",
+    },
+    {
+      icon: <i className="bx bx-question-mark mr-2"></i>,
+      name: "Assessment",
+      path: "/assessment",
+    },
+    {
+      icon: <i className="bx bx-badge-check mr-2"></i>,
+      name: "Progress",
+      path: "/progress",
+    },
+    {
+      icon: <i className="bx bxs-comment-detail mr-2"></i>,
+      name: "Contacts",
+      path: "/contacts",
+    },
   ];
 
   return (
     <SidebarContainer>
       <div className="logo">
-        <h1 className="text-3xl font-bold text-center my-6">Etech</h1>
+        <i className="bx bxs-graduation text-7xl"></i>
+        <h1 className="text-3xl font-bold text-center my-6 mt-1">Etech</h1>
       </div>
       <nav className="menu">
         {menuItems.map((item, index) => (
@@ -37,7 +63,8 @@ export default function SideBar() {
             key={index}
             className={`menu-item ${currentPath === item.path ? "active" : ""}`}
           >
-            {item.icon}{item.name}
+            {item.icon}
+            {item.name}
           </a>
         ))}
       </nav>
@@ -53,7 +80,7 @@ export default function SideBar() {
 const SidebarContainer = styled.div`
   width: 250px;
   height: 100vh;
-  background-color: rgb(76, 53, 159); 
+  background-color: rgb(76, 53, 159);
   color: #f6d6d6;
   display: flex;
   flex-direction: column;
@@ -85,7 +112,12 @@ const SidebarContainer = styled.div`
     background-color: rgba(255, 255, 255, 0.1);
   }
   .menu-item.active {
-  background-color: rgba(255, 255, 255, 0.2); /* Example: Highlight the active link */
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0.2
+    ); /* Example: Highlight the active link */
   }
 
   .logout {
@@ -117,5 +149,16 @@ const SidebarContainer = styled.div`
       rgb(150, 27, 82)
     ); /* Darker purple to pink */
     transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    width: 200px;
+  }
+
+  @media (max-width: 480px) {
+    width: 80px;
+    .menu-item {
+      font-size: 0.85rem;
+    }
   }
 `;

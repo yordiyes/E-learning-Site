@@ -21,40 +21,63 @@ const StudentDashboardValidate = () => {
 };
 
 export default function StudentDashboard() {
+  const navigate = useNavigate();
+
   StudentDashboardValidate();
   useEffect(() => {
-    // Extract token from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get("token");
 
-    if (token) {
-      // Decode the token to get the role (optional)
-      const payload = JSON.parse(atob(token.split(".")[1])); // Decode JWT payload
-      const userRole = payload.role;
+      if (token) {
+        const payload = JSON.parse(atob(token.split(".")[1])); // Decode JWT payload
+        const userRole = payload.role;
 
-      // Store token and userRole in localStorage
-      localStorage.setItem("token", token);
-      localStorage.setItem("userRole", userRole);
+        localStorage.setItem("token", token);
+        localStorage.setItem("userRole", userRole);
 
-      console.log("Token and role saved:", { token, userRole });
+        console.log("Token and role saved:", { token, userRole });
+      }
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      alert("Invalid token detected. Please log in again.");
+      navigate("/signin");
     }
   }, []);
+
   const currentDate = new Date();
 
   // Extract the day, month, and year
-  const day = currentDate.getDate(); 
+  const day = currentDate.getDate();
   const monthIndex = currentDate.getMonth();
-  const year = currentDate.getFullYear(); 
-  
+  const year = currentDate.getFullYear();
+
+  const getGreeting = () => {
+    const hours = currentDate.getHours();
+    if (hours < 12) return "Good Morning, 🖐";
+    if (hours < 18) return "Good Afternoon, 🖐";
+    return "Good Evening, 🖐";
+  };
+
   // Array of month names
   const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
-  
+
   // Get the name of the current month
   const month = monthNames[monthIndex];
-  
+
   return (
     <Container>
       <div>
@@ -63,9 +86,13 @@ export default function StudentDashboard() {
       <div className="inner-container">
         <div className="user-board">
           <div>
-            <p className="text-sm font-bold text-slate-200">{month + " " + day + " " + year}</p>
+            <p className="text-sm font-bold text-slate-200">
+              {getGreeting() + month + " " + day + " " + year}
+            </p>
 
-            <h1 className="mt-20 text-3xl font-bold text-slate-200">Welcome Back, 🖐</h1>
+            <h1 className="mt-20 text-3xl font-bold text-slate-200">
+              Welcome Back, 🖐
+            </h1>
             <p className="text-slate-300">
               Always stay update in your student portal.
             </p>
@@ -73,6 +100,9 @@ export default function StudentDashboard() {
           <div>
             <img src={boy} width={259} className="mr-10 pb-0" alt="" />
           </div>
+        </div>
+        <div className="second-inner">
+          
         </div>
       </div>
     </Container>
@@ -96,5 +126,19 @@ const Container = styled.div`
     border-radius: 20px;
     display: flex;
     justify-content: space-between;
+  }
+  @media (max-width: 768px) {
+    .user-board {
+      flex-direction: column;
+      height: auto;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .user-board img {
+      margin-top: 20px;
+      width: 200px;
+    }
   }
 `;
