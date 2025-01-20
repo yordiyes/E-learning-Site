@@ -101,17 +101,46 @@ export default function StudentDashboard() {
             <img src={boy} width={259} className="mr-10 pb-0" alt="" />
           </div>
         </div>
-        <h1 className="mt-5 ml-5 mb-0 text-xl font-bold">Finance</h1>
-
-        <div className="second-inner flex w-9/12 h-2/5">
-          <div className="cards bg-blue-200 rounded-xl p-3 mx-4 mt-3 h-60 w-full ">
-          
+        <div className="flex">
+          <div className="second-inner w-9/12 h-2/5">
+            <h1 className="mt-5 ml-5 mb-0 text-xl font-bold w-9/12 h-2/5">
+              Finance
+            </h1>
+            <div className="second-inner flex w-full h-2/5">
+              <div className="cards bg-blue-200 rounded-xl p-3 mx-4 mt-3 h-60 w-full text-center pt-12">
+                <div>
+                  <i className="text-violet-500 fa-solid fa-coins text-8xl mb-5"></i>
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold">$10000</h1>
+                  <p>Total Payable</p>
+                </div>
+              </div>
+              <div className="cards bg-blue-200 rounded-xl p-3 mx-4 mt-3 h-60 w-full text-center pt-12">
+                <div>
+                  <i className="text-violet-500 fa-solid fa-money-bill-wave text-8xl mb-5"></i>
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold">$5000</h1>
+                  <p>Total Paid</p>
+                </div>
+              </div>
+              <div className="cards bg-blue-200 rounded-xl p-3 mx-4 mt-3 h-60 w-full text-center pt-12">
+                <div>
+                  <i className="text-violet-500 fa-solid fa-receipt text-8xl mb-5"></i>
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold">$300</h1>
+                  <p>Others</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="cards bg-blue-200 rounded-xl p-3 m-6 mt-3 h-60 w-full">
-          
-          </div>
-          <div className="cards bg-blue-200 rounded-xl p-3 m-6 mt-3 h-60 w-full">
-           
+          <div className="flex flex-col">
+            <h1 className="mt-5 ml-5 mb-0 text-xl font-bold">Course Instructors</h1>
+            <div className="cards bg-blue-200 rounded-xl p-3 mx-4 mt-3 h-60 w-full text-center pt-12">
+                
+              </div>
           </div>
         </div>
       </div>
