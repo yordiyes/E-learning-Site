@@ -3,7 +3,7 @@ import student from "../assets/student.png";
 
 export default function Show() {
   return (
-    <Container>
+    <Container className="bg-pink-50">
       <div className="container items-center flex ">
         <div className="w-full lg:w-1/2 m-10">
           <h1 className="text-5xl pt-5 px-5 font-bold lg:text-6xl sm:text-4xl">
@@ -37,7 +37,7 @@ export default function Show() {
 }
 
 const Container = styled.div`
-  background-color: rgb(249, 220, 247);
+  // background-color: rgb(249, 220, 247);
   min-height: 82vh;
   display: flex;
   align-items: center;

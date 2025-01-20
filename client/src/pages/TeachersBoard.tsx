@@ -5,7 +5,7 @@ import instructor from "../assets/instructor.png";
 export default function Coureses() {
   const navigate = useNavigate();
   return (
-    <Container>
+    <Container className="bg-pink-50">
       <div className="inner-container">
         <div className="inner">
           <h2 className="text-3xl font-bold my-3">
@@ -55,7 +55,6 @@ export default function Coureses() {
 }
 
 const Container = styled.div`
-  background-color: rgb(249, 220, 237);
   min-height: 92vh;
   display: flex;
   flex-direction: column;

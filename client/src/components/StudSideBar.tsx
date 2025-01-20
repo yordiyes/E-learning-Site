@@ -40,6 +40,11 @@ export default function SideBar() {
     },
     {
       icon: <i className="bx bx-badge-check mr-2"></i>,
+      name: "Resources Hub",
+      path: "/resourcesHub",
+    },
+    {
+      icon: <i className="bx bx-badge-check mr-2"></i>,
       name: "Progress",
       path: "/progress",
     },

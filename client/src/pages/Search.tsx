@@ -3,7 +3,7 @@ import search from "../assets/education.png";
 
 export default function Coureses() {
   return (
-    <Container>
+    <Container className="bg-pink-50">
       <div className="second-cont">
         <h1 className="text-2xl font-bold">Search Courses</h1>
         <div className="search-container">
@@ -78,7 +78,6 @@ export default function Coureses() {
 }
 
 const Container = styled.div`
-  background-color: rgb(249, 220, 237);
   min-height: 92vh;
   display: flex;
   flex-direction: column;

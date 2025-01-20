@@ -79,7 +79,7 @@ export default function StudentDashboard() {
   const month = monthNames[monthIndex];
 
   return (
-    <Container>
+    <Container className="bg-blue-50">
       <div>
         <SideBar />
       </div>
@@ -101,15 +101,25 @@ export default function StudentDashboard() {
             <img src={boy} width={259} className="mr-10 pb-0" alt="" />
           </div>
         </div>
-        <div className="second-inner">
+        <h1 className="mt-5 ml-5 mb-0 text-xl font-bold">Finance</h1>
+
+        <div className="second-inner flex w-9/12 h-2/5">
+          <div className="cards bg-blue-200 rounded-xl p-3 mx-4 mt-3 h-60 w-full ">
           
+          </div>
+          <div className="cards bg-blue-200 rounded-xl p-3 m-6 mt-3 h-60 w-full">
+          
+          </div>
+          <div className="cards bg-blue-200 rounded-xl p-3 m-6 mt-3 h-60 w-full">
+           
+          </div>
         </div>
       </div>
     </Container>
   );
 }
 const Container = styled.div`
-  background: rgb(218, 190, 218);
+  // background: rgb(218, 190, 218);
   height: 100vh;
   display: flex;
   .inner-container {
@@ -141,4 +151,8 @@ const Container = styled.div`
       width: 200px;
     }
   }
+    .second-inner{
+      justify-content: space-between:
+      align-item: center;
+    }
 `;
