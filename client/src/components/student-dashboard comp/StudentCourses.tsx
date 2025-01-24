@@ -9,32 +9,18 @@ export default function Courses() {
   }
 
   const [courses, setCourses] = useState<Course[]>([]); // State to hold the course list
-  const sampleCourses = [
-    {
-      title: "Introduction to React",
-      description: "Learn the basics of React, including components and state management.",
-      instructor: "John Doe",
-    },
-    {
-      title: "Advanced JavaScript",
-      description: "Master JavaScript with advanced concepts like closures, promises, and async/await.",
-      instructor: "Jane Smith",
-    },
-    {
-      title: "Database Design",
-      description: "Learn how to design efficient and scalable database schemas.",
-      instructor: "Chris Lee",
-    },
-  ];
   
   // Fetch courses from an API or use static data
   useEffect(() => {
     const fetchCourses = async () => {
       try {
         // Replace with your API endpoint or use static data
-        // const response = await fetch("/api/courses");
-        // const data = await response.json();
-        setCourses(sampleCourses); // Update the state with course data
+        const response = await fetch("http://localhost:5000/api/courses");
+        if (!response.ok) {
+          throw new Error('Failed to fetch courses');
+        }
+        const data = await response.json();
+        setCourses(data); // Update the state with course data
       } catch (error) {
         console.error("Error fetching courses:", error);
       }

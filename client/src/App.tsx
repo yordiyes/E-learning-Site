@@ -18,7 +18,7 @@ import Assessments from "./components/teacher-dashboard comp/Assessments.tsx";
 import T_Dashboard from "./components/teacher-dashboard comp/Dashboard.tsx";
 import Students from "./components/teacher-dashboard comp/Students.tsx";
 import Payment from "./components/teacher-dashboard comp/Payment.tsx";
-import T_Courses from "./components/teacher-dashboard comp/courses.tsx";
+import T_Courses from "./components/teacher-dashboard comp/CoursesManagement.tsx";
 
 export default function App() {
   return (

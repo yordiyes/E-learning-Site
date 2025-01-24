@@ -3,6 +3,7 @@ import cors from "cors";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Users from "./models/userModel.js";
+import Course from "./models/coursesModel.js";
 import APIRoute from "./routes/APIRoutes.js";
 import passport from "./passport.js";
 import dotenv from "dotenv";
@@ -190,6 +191,59 @@ app.post(APIRoute.AUTH.SIGNIN, async (req, res) => {
   } catch (err) {
     console.error("Error occurred:", err);
     res.status(500).send("Error processing sign-in");
+  }
+});
+
+app.get("/api/courses", async (req, res) =>{
+  try{
+  const courses = await Course.find();
+  res.status(200).json(courses); 
+
+  }catch(err){
+    console.error("Error occurred:", err);
+    res.status(500).send("Error Fetching Courses");
+  }
+})
+
+app.delete("/api/courses/:id", verifyToken, verifyRole("teacher"), async (req, res) => {
+  try {
+    const courseId = req.params.id;
+    console.log("Course ID:", courseId);
+    console.log("User Role:", req.user.role);
+
+    const deletedCourse = await Course.findByIdAndDelete(courseId);
+
+    if (!deletedCourse) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    res.status(200).json({ message: "Course deleted successfully" });
+  } catch (err) {
+    console.error("Error occurred:", err);
+    res.status(500).json({ message: "Error deleting course" });
+  }
+});
+
+
+
+app.post('/api/courses', async (req, res) => {
+  const { title, description, instructor } = req.body;
+
+  // Check if all necessary fields are provided
+  if (!title || !description || !instructor) {
+    return res.status(400).json({ message: 'All fields are required.' });
+  }
+
+  try {
+    // Create a new course
+    const newCourse = new Course({ title, description, instructor });
+    await newCourse.save();
+    
+    // Respond with success message
+    res.status(201).json({ message: 'Course added successfully!' });
+  } catch (error) {
+    console.error('Error adding course:', error);
+    res.status(500).json({ message: 'Error adding course.' });
   }
 });
 

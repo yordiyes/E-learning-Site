@@ -58,11 +58,9 @@ const StudentDashboard = () => {
         <div className="logout">
           <button
             onClick={() => {
-              if (window.confirm("Are you sure you want to log out?")) {
                 localStorage.removeItem("token");
                 localStorage.removeItem("userRole");
                 window.location.href = "/";
-              }
             }}
             className="logout-btn"
           >
