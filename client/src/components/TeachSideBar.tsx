@@ -3,13 +3,16 @@ import { useNavigate } from "react-router-dom";
 
 export default function SideBar() {
   const navigate = useNavigate();
-
   function logout() {
-    // Remove the token from localStorage
-    localStorage.removeItem("token");
-    localStorage.removeItem("userRole");
-
-    navigate("/");
+    if (window.confirm("Are you sure you want to log out?")) {
+      try {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userRole");
+        navigate("/");
+      } catch (error) {
+        console.error("Error during logout:", error);
+      }
+    }
   }
 
   return (

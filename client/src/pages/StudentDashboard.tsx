@@ -1,184 +1,141 @@
 import styled from "styled-components";
-import SideBar from "../components/StudSideBar";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import boy from "../assets/boy.png";
+import { Link, Outlet } from "react-router-dom";
 
-const StudentDashboardValidate = () => {
-  const navigate = useNavigate();
+const StudentDashboard = () => {
+  return (
+    <DashboardContainer>
+      {/* Sidebar */}
+      <SidebarContainer>
+        <div className="logo">
+          <i className="bx bxs-graduation text-7xl"></i>
+          <h1 className="text-3xl font-bold text-center my-6 mt-1">Etech</h1>
+        </div>
+        <nav className="menu">
+          <ul>
+            <li>
+              <Link to="/student-dashboard/dashboard" className="menu-item my-3">
+                <i className="bx bxs-dashboard mr-2"></i> Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link to="/student-dashboard/courses" className="menu-item my-3">
+                <i className="bx bx-book mr-2"></i> Courses
+              </Link>
+            </li>
+            <li>
+              <Link to="/student-dashboard/resources" className="menu-item my-3">
+                <i className="bx bx-badge-check mr-2"></i> Resources Hub
+              </Link>
+            </li>
+            <li>
+              <Link to="/student-dashboard/teachers" className="menu-item my-3">
+                <i className="bx bx-badge-check mr-2"></i> Teachers
+              </Link>
+            </li>
+            <li>
+              <Link to="/student-dashboard/assessment" className="menu-item my-3">
+                <i className="bx bx-badge-check mr-2"></i> Assessment
+              </Link>
+            </li>
+            <li>
+              <Link to="/student-dashboard/contacts" className="menu-item my-3">
+                <i className="bx bxs-comment-detail mr-2"></i> Contacts
+              </Link>
+            </li>
+          </ul>
+        </nav>
+        <div className="logout">
+          <button
+            onClick={() => {
+              if (window.confirm("Are you sure you want to log out?")) {
+                localStorage.removeItem("token");
+                localStorage.removeItem("userRole");
+                window.location.href = "/";
+              }
+            }}
+            className="logout-btn"
+          >
+            LogOut
+          </button>
+        </div>
+      </SidebarContainer>
 
-  useEffect(() => {
-    const userRole = localStorage.getItem("userRole");
-
-    if (userRole !== "student") {
-      console.warn("Unauthorized access attempt.");
-      navigate("/teacher-dashboard");
-    }
-  }, []);
+      {/* Main Content */}
+      <MainContentContainer>
+        <Outlet /> {/* Child components (from routes) will render here */}
+      </MainContentContainer>
+    </DashboardContainer>
+  );
 };
 
-export default function StudentDashboard() {
-  const navigate = useNavigate();
+export default StudentDashboard;
 
-  StudentDashboardValidate();
-  useEffect(() => {
-    try {
-      const urlParams = new URLSearchParams(window.location.search);
-      const token = urlParams.get("token");
-
-      if (token) {
-        const payload = JSON.parse(atob(token.split(".")[1])); // Decode JWT payload
-        const userRole = payload.role;
-
-        localStorage.setItem("token", token);
-        localStorage.setItem("userRole", userRole);
-
-        console.log("Token and role saved:", { token, userRole });
-      }
-    } catch (error) {
-      console.error("Error decoding token:", error);
-      alert("Invalid token detected. Please log in again.");
-      navigate("/signin");
-    }
-  }, []);
-
-  const currentDate = new Date();
-
-  // Extract the day, month, and year
-  const day = currentDate.getDate();
-  const monthIndex = currentDate.getMonth();
-  const year = currentDate.getFullYear();
-
-  const getGreeting = () => {
-    const hours = currentDate.getHours();
-    if (hours < 12) return "Good Morning, 🖐";
-    if (hours < 18) return "Good Afternoon, 🖐";
-    return "Good Evening, 🖐";
-  };
-
-  // Array of month names
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  // Get the name of the current month
-  const month = monthNames[monthIndex];
-
-  return (
-    <Container className="bg-blue-50">
-      <div>
-        <SideBar />
-      </div>
-      <div className="inner-container">
-        <div className="user-board">
-          <div>
-            <p className="text-sm font-bold text-slate-200">
-              {getGreeting() + month + " " + day + " " + year}
-            </p>
-
-            <h1 className="mt-20 text-3xl font-bold text-slate-200">
-              Welcome Back, 🖐
-            </h1>
-            <p className="text-slate-300">
-              Always stay update in your student portal.
-            </p>
-          </div>
-          <div>
-            <img src={boy} width={259} className="mr-10 pb-0" alt="" />
-          </div>
-        </div>
-        <div className="flex">
-          <div className="second-inner w-9/12 h-2/5">
-            <h1 className="mt-5 ml-5 mb-0 text-xl font-bold w-9/12 h-2/5">
-              Finance
-            </h1>
-            <div className="second-inner flex w-full h-2/5">
-              <div className="cards bg-blue-200 rounded-xl p-3 mx-4 mt-3 h-60 w-full text-center pt-12">
-                <div>
-                  <i className="text-violet-500 fa-solid fa-coins text-8xl mb-5"></i>
-                </div>
-                <div>
-                  <h1 className="text-xl font-bold">$10000</h1>
-                  <p>Total Payable</p>
-                </div>
-              </div>
-              <div className="cards bg-blue-200 rounded-xl p-3 mx-4 mt-3 h-60 w-full text-center pt-12">
-                <div>
-                  <i className="text-violet-500 fa-solid fa-money-bill-wave text-8xl mb-5"></i>
-                </div>
-                <div>
-                  <h1 className="text-xl font-bold">$5000</h1>
-                  <p>Total Paid</p>
-                </div>
-              </div>
-              <div className="cards bg-blue-200 rounded-xl p-3 mx-4 mt-3 h-60 w-full text-center pt-12">
-                <div>
-                  <i className="text-violet-500 fa-solid fa-receipt text-8xl mb-5"></i>
-                </div>
-                <div>
-                  <h1 className="text-xl font-bold">$300</h1>
-                  <p>Others</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <h1 className="mt-5 ml-5 mb-0 text-xl font-bold">
-              Course Instructors
-            </h1>
-            <div className="cards bg-blue-200 rounded-xl p-3 mx-4 mt-3 h-60 w-full text-center pt-12"></div>
-          </div>
-        </div>
-      </div>
-    </Container>
-  );
-}
-const Container = styled.div`
-  // background: rgb(218, 190, 218);
-  height: 100vh;
+const DashboardContainer = styled.div`
   display: flex;
-  .inner-container {
-    width: 100%;
-    padding: 15px;
+  height: 100vh;
+  width: 100%;
+`;
+
+const SidebarContainer = styled.div`
+  width: 250px;
+  background-color: rgb(76, 53, 159);
+  color: #f6d6d6;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .logo {
+    text-align: center;
+    padding: 1rem;
   }
 
-  .user-board {
-    background-color: rgb(114, 90, 199);
-    width: 100%;
-    height: 210px;
-    margin-left: 2px;
-    padding: 20px 20px 0px 80px;
-    border-radius: 20px;
+  .menu {
+    padding: 1rem;
+  }
+
+  .menu-item {
+    color: #f6d6d6;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
   }
-  @media (max-width: 768px) {
-    .user-board {
-      flex-direction: column;
-      height: auto;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
 
-    .user-board img {
-      margin-top: 20px;
-      width: 200px;
-    }
+  .menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
   }
-    .second-inner{
-      justify-content: space-between:
-      align-item: center;
-    }
+
+  .logout {
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .logout-btn {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffffff;
+    background: linear-gradient(to right, #a78bfa, #f472b6);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .logout-btn:hover {
+    background: linear-gradient(to right, rgb(58, 79, 237), rgb(150, 27, 82));
+    transform: scale(1.05);
+  }
+`;
+
+const MainContentContainer = styled.div`
+  flex: 1;
+  padding: 2rem;
+  background-color: #f9fafb;
+  overflow-y: auto;
 `;
