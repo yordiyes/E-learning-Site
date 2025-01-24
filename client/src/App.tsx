@@ -14,6 +14,12 @@ import Dashboard from "./components/student-dashboard comp/Dashboard.tsx";
 import Resources from "./components/student-dashboard comp/Resources.tsx";
 import Contacts from "./components/student-dashboard comp/Contacts.tsx";
 
+import Assessments from "./components/teacher-dashboard comp/Assessments.tsx";
+import T_Dashboard from "./components/teacher-dashboard comp/Dashboard.tsx";
+import Students from "./components/teacher-dashboard comp/Students.tsx";
+import Payment from "./components/teacher-dashboard comp/Payment.tsx";
+import T_Courses from "./components/teacher-dashboard comp/courses.tsx";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -45,7 +51,14 @@ export default function App() {
         </Route>
 
         {/* Teacher Dashboard */}
-        <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
+        <Route path="/teacher-dashboard" element={<TeacherDashboard />} >
+          <Route index element={<Navigate to="/teacher-dashboard/dashboard" />} />
+          <Route path="dashboard" element={<T_Dashboard />} />
+          <Route path="students" element={<Students />} />
+          <Route path="courses" element={<T_Courses />} />
+          <Route path="assessment" element={<Assessments />} />
+          <Route path="payment" element={<Payment />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

@@ -1,7 +1,18 @@
 import styled from "styled-components";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const StudentDashboard = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userRole = localStorage.getItem("userRole");
+
+    if (userRole !== "student") {
+      console.warn("Unauthorized access attempt.");
+      navigate("/teacher-dashboard");
+    }
+  }, []);
   return (
     <DashboardContainer>
       {/* Sidebar */}
@@ -29,12 +40,12 @@ const StudentDashboard = () => {
             </li>
             <li>
               <Link to="/student-dashboard/teachers" className="menu-item my-3">
-                <i className="bx bx-badge-check mr-2"></i> Teachers
+                <i className="bx bx-user mr-2"></i> Teachers
               </Link>
             </li>
             <li>
               <Link to="/student-dashboard/assessment" className="menu-item my-3">
-                <i className="bx bx-badge-check mr-2"></i> Assessment
+                <i className="bx bx-comment-check mr-2"></i> Assessment
               </Link>
             </li>
             <li>
@@ -74,6 +85,7 @@ const DashboardContainer = styled.div`
   display: flex;
   height: 100vh;
   width: 100%;
+  padding: 0;
 `;
 
 const SidebarContainer = styled.div`
@@ -135,7 +147,7 @@ const SidebarContainer = styled.div`
 
 const MainContentContainer = styled.div`
   flex: 1;
-  padding: 2rem;
+  padding: 0;
   background-color: #f9fafb;
   overflow-y: auto;
 `;

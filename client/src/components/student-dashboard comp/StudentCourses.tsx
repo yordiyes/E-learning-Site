@@ -75,7 +75,7 @@ const Container = styled.div`
     gap: 20px;
   }
   .course-card {
-    background-color: #f3f4f6;
+    background-color:rgb(148, 163, 193);
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
