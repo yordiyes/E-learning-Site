@@ -3,7 +3,7 @@ import search from "../assets/education.png";
 
 export default function Coureses() {
   return (
-    <Container className="bg-pink-50">
+    <Container className="bg-blue-50">
       <div className="second-cont">
         <h1 className="text-2xl font-bold">Search Courses</h1>
         <div className="search-container">

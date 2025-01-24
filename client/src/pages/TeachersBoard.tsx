@@ -5,7 +5,7 @@ import instructor from "../assets/instructor.png";
 export default function Coureses() {
   const navigate = useNavigate();
   return (
-    <Container className="bg-pink-50">
+    <Container className="bg-blue-50">
       <div className="inner-container">
         <div className="inner">
           <h2 className="text-3xl font-bold my-3">

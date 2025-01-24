@@ -12,10 +12,7 @@ const StudentDashboardValidate = () => {
 
     if (userRole !== "student") {
       console.warn("Unauthorized access attempt.");
-      if (!sessionStorage.getItem("redirected")) {
-        sessionStorage.setItem("redirected", "true");
-        navigate("/teacher-dashboard");
-      }
+      navigate("/teacher-dashboard");
     }
   }, []);
 };
@@ -137,10 +134,10 @@ export default function StudentDashboard() {
             </div>
           </div>
           <div className="flex flex-col">
-            <h1 className="mt-5 ml-5 mb-0 text-xl font-bold">Course Instructors</h1>
-            <div className="cards bg-blue-200 rounded-xl p-3 mx-4 mt-3 h-60 w-full text-center pt-12">
-                
-              </div>
+            <h1 className="mt-5 ml-5 mb-0 text-xl font-bold">
+              Course Instructors
+            </h1>
+            <div className="cards bg-blue-200 rounded-xl p-3 mx-4 mt-3 h-60 w-full text-center pt-12"></div>
           </div>
         </div>
       </div>

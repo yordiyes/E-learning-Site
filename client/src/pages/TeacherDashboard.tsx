@@ -11,10 +11,7 @@ const TeacherDashboardValidate = () => {
 
     if (userRole !== "teacher") {
       console.warn("Unauthorized access attempt.");
-      if (!sessionStorage.getItem("redirected")) {
-        sessionStorage.setItem("redirected", "true");
-        navigate("/student-dashboard");
-      }
+      navigate("/student-dashboard");
     }
   }, []);
 };
@@ -35,10 +32,10 @@ export default function TeacherDashboard() {
       localStorage.setItem("userRole", userRole);
 
       console.log("Token and role saved:", { token, userRole });
-    } 
+    }
   }, []);
   return (
-    <Container >
+    <Container>
       <div>
         <SideBar />
       </div>
@@ -49,7 +46,7 @@ export default function TeacherDashboard() {
   );
 }
 const Container = styled.div`
-  background:rgb(160, 139, 160);
+  background: rgb(160, 139, 160);
   height: 100vh;
   display: flex;
   .inner-container {

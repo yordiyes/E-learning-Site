@@ -3,7 +3,7 @@ import student from "../assets/student.png";
 
 export default function Show() {
   return (
-    <Container className="bg-pink-50">
+    <Container className="bg-blue-50">
       <div className="container items-center flex ">
         <div className="w-full lg:w-1/2 m-10">
           <h1 className="text-5xl pt-5 px-5 font-bold lg:text-6xl sm:text-4xl">

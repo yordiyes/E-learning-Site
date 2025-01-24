@@ -117,7 +117,7 @@ export default function SignIn() {
 }
 
 const Container = styled.div`
-  background: linear-gradient(to left, rgb(253 242 248 ) 50%, white 50%);
+  background: linear-gradient(to left,rgb(191 219 240) 50%, white 50%);
   min-height: 100vh;
   display: flex;
   align-items: center;
