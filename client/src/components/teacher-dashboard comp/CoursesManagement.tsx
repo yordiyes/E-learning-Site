@@ -33,7 +33,7 @@ export default function CoursesPage() {
     const courseData = { title, description, instructor };
   
     // Get the token from localStorage or another source
-    const token = localStorage.getItem("token");  // Or use sessionStorage/cookies
+    const token = localStorage.getItem("token");  
   
     if (!token) {
       alert("You must be logged in to add a course.");
@@ -45,7 +45,7 @@ export default function CoursesPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,  // Add token in Authorization header
+          "Authorization": `Bearer ${token}`,  
         },
         body: JSON.stringify(courseData),
       });

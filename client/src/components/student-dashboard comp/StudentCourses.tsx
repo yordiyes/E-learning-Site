@@ -8,19 +8,17 @@ export default function Courses() {
     instructor: string;
   }
 
-  const [courses, setCourses] = useState<Course[]>([]); // State to hold the course list
-  
-  // Fetch courses from an API or use static data
+  const [courses, setCourses] = useState<Course[]>([]); 
+
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        // Replace with your API endpoint or use static data
         const response = await fetch("http://localhost:5000/api/courses");
         if (!response.ok) {
           throw new Error('Failed to fetch courses');
         }
         const data = await response.json();
-        setCourses(data); // Update the state with course data
+        setCourses(data);
       } catch (error) {
         console.error("Error fetching courses:", error);
       }
@@ -39,6 +37,7 @@ export default function Courses() {
               <h2>{course.title}</h2>
               <p>{course.description}</p>
               <span>{course.instructor}</span>
+              <button className="block w-20 bg-blue-200 p-1 rounded">Enroll</button>
             </div>
           ))
         ) : (

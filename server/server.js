@@ -247,6 +247,22 @@ app.post('/api/courses', async (req, res) => {
   }
 });
 
+app.get('/api/teacher/students',verifyToken, verifyRole("teacher") ,async (req, res) => {
+  try {
+    // Query all users with the role 'student'
+    const students = await Users.find({ role: 'student' });
+
+    if (students.length === 0) {
+      return res.status(404).json({ msg: 'No students found' });
+    }
+
+    res.json(students);  
+  } catch (error) {
+    console.error('Error fetching students:', error);
+    res.status(500).send('Server Error');
+  }
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
