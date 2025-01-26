@@ -9,6 +9,7 @@ import Sponsors from "./pages/Sponsors.tsx";
 import Search from "./pages/Search.tsx";
 import Courses from "./pages/Courses.tsx";
 import TeacherBoard from "./pages/TeachersBoard.tsx";
+import StudentTestionals from "./pages/StudentTestimonals.tsx";
 import StudentCourses from "./components/student-dashboard comp/StudentCourses.tsx";
 import Dashboard from "./components/student-dashboard comp/Dashboard.tsx";
 import Resources from "./components/student-dashboard comp/Resources.tsx";
@@ -35,6 +36,7 @@ export default function App() {
               <Search />
               <Courses />
               <TeacherBoard />
+              <StudentTestionals />
             </>
           }
         />

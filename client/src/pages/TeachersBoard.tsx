@@ -20,7 +20,7 @@ export default function Coureses() {
             in? Mollitia iste culpa sit perferendis iusto repudiandae porro,
             delectus modi dolores doloribus, libero hic quae dolor repellat.
           </p>
-          <h2 className="text-3xl font-bold mt-3 mb-3">Enjoy Many Perks</h2>
+          <h2 className="text-3xl font-bold my-4">Enjoy Many Perks</h2>
           <div className="flex">
             <p className="mr-10"><i className='bx bxs-circle text-xs text-purple-400 mr-3'></i>Global Impact</p>
             <p className="ml-20"><i className='bx bxs-circle text-xs text-purple-400 mr-3'></i>Creative Freedom</p>
