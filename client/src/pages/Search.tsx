@@ -14,7 +14,8 @@ export default function Coureses() {
             placeholder="Search for over 50+ courses"
             className="search-input"
           />
-          <button className="search-btn border-2 border-none text-Tan px-4 mx-2 py-1 rounded hover:bg-blue-500 bg-gradient-to-r from-purple-400 to-pink-300 hover:text-black transition">
+          <button className="search-btn border-2 border-none text-Tan px-4 mx-2 py-1 
+          rounded hover:bg-blue-500 bg-gradient-to-r from-purple-400 to-pink-300  transition">
             Search
           </button>
         </div>
@@ -119,7 +120,13 @@ const Container = styled.div`
     height: 45px;
   }
   .search-btn:hover {
-    color:rgb(34, 33, 35);
+    background: linear-gradient(
+      to right,
+      rgb(58, 79, 237),
+      rgb(150, 27, 82)
+    ); /* Darker purple to pink */
+    transform: scale(1.05);
+    transition: all 0.3s ease;
   }
   .img2 {
     width: 450px;

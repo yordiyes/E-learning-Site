@@ -18,8 +18,8 @@ const TeacherDashboard = () => {
       {/* Sidebar */}
       <SidebarContainer>
         <div className="logo">
-          <i className="bx bxs-user text-7xl"></i>
-          <h1 className="text-3xl font-bold text-center my-6 mt-1">Etech</h1>
+          <i className="bx bxs-user text-7xl mt-4"></i>
+          <h1 className="text-3xl font-bold text-center my-6 mt-1">Teacher</h1>
         </div>
         <nav className="menu">
           <ul>

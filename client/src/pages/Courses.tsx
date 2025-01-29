@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import pc from "../assets/pc.jpg";
-// import pc2 from "../assets/pc2.jpg";
+import pc2 from "../assets/pc2.jpg";
 import pc3 from "../assets/pc3.jpg";
 import me from "../assets/me.png"
 export default function Courses() {
@@ -37,7 +37,7 @@ export default function Courses() {
             {
               id: 2,
               name: "UI/UX Design Fundamentals",
-              image: pc,
+              image: pc2,
               badge: "UI/UX Design",
               rating: 4.8,
               classes: 20,

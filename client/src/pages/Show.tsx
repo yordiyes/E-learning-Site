@@ -16,7 +16,7 @@ export default function Show() {
             dignissimos nisi dolor illo minus similique quos expedita facilis.
             Accusantium, delectus assumenda.
           </p>
-          <button className="btn border-2 border-none text-Tan font-medium px-4 mx-12 py-2 text-2xl rounded hover:bg-blue-500 bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition">
+          <button className="btn border-2 border-none text-Tan font-medium px-4 mx-12 py-2 text-2xl rounded  bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition">
             Enroll Now
           </button>
           <a
@@ -60,5 +60,6 @@ const Container = styled.div`
       rgb(150, 27, 82)
     ); /* Darker purple to pink */
     transform: scale(1.05);
+    transition: all 0.3s ease;
   }
 `;

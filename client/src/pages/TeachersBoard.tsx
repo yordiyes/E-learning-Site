@@ -85,5 +85,7 @@ const Container = styled.div`
       rgb(189, 92, 136)
     ); /* Darker purple to pink */
     transform: scale(1.05);
+    transition: all 0.5s ease;
+
   }
 `;

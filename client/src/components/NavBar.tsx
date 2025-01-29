@@ -8,7 +8,9 @@ export default function NavBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between py-8 items-center h-12">
           <div className="flex-shrink-0">
-            <h1 className="text-2xl text-3xl py-7 font-bold"><a href="http:/">Etech</a></h1>
+            <h1 className="text-2xl text-3xl py-7 font-bold">
+              <a href="http:/">Etech</a>
+            </h1>
           </div>
 
           <div className="md-flex">
@@ -39,13 +41,13 @@ export default function NavBar() {
           </div>
           <div className="md-flex">
             <button
-              className="border-2 font-medium border-pink-500 text-blue-500 px-4 mx-2 py-1 rounded hover:bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition"
+              className="signup-btn border-2 font-medium border-pink-300 text-blue-500 px-4 mx-2 py-1 rounded hover:bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition"
               onClick={() => navigate("/signup")}
             >
               Sign Up
             </button>
             <button
-              className="border-2 font-medium border-none text-Tan px-4 mx-2 py-1 rounded hover:bg-blue-500 bg-gradient-to-r from-purple-400 to-pink-300 hover:text-white transition"
+              className="signin-btn border-2 font-medium border-none text-Tan px-4 mx-2 py-1 rounded bg-gradient-to-r from-purple-400 to-pink-300 hover:text-gray-100 transition"
               onClick={() => navigate("/signin")}
             >
               Free Trial
@@ -59,4 +61,16 @@ export default function NavBar() {
 
 const Nav = styled.div`
   // background-color: rgb(249, 220, 247);
+  .signin-btn:hover {
+    background: linear-gradient(
+      to right,
+      rgb(58, 79, 237),
+      rgb(150, 27, 82)
+    ); /* Darker purple to pink */
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+  }
+  .signup-btn:hover {
+    transition: all 0.3s ease;
+  }
 `;
