@@ -11,7 +11,7 @@ Welcome to the **E-learning Site** repository! This project is designed to serve
 
 ## Technologies Used
 
-- **Frontend**: HTML, CSS, JavaScript
+- **Frontend**: HTML, CSS, JavaScript, Ractjs 
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB
 - **Additional Tools**: Tailwind CSS, Axios
