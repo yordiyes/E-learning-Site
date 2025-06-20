@@ -6,6 +6,7 @@ import Users from "./models/userModel.js";
 import Course from "./models/coursesModel.js";
 import APIRoute from "./routes/APIRoutes.js";
 import passport from "./passport.js";
+import { verifyToken, verifyRole } from "./middleware/JWTMiddleware.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -19,39 +20,10 @@ app.use(express.json());
 
 app.use(passport.initialize());
 
-// Middleware to verify JWT
-const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization?.split(" ")[1];
-
-  if (!token) {
-    return res.status(403).json({ message: "Access token is required" });
-  }
-
-  try {
-    // Verify the token
-    const decoded = jwt.verify(token, secretKey);
-    req.user = decoded;
-
-    next();
-  } catch (err) {
-    console.error("JWT verification failed:", err);
-    res.status(401).json({ message: "Invalid or expired token" });
-  }
-};
-
-const verifyRole = (requiredRole) => (req, res, next) => {
-  console.log("User role:", req.user?.role); // Debugging
-  if (req.user?.role !== requiredRole) {
-    return res.status(403).json({ message: "Access denied" });
-  }
-  next();
-};
-
 app.use("/protected", verifyToken);
 app.use("/student-dashboard", verifyToken, verifyRole("student"));
 app.use("/teacher-dashboard", verifyToken, verifyRole("teacher"));
 
-// Protect specific routes with both verifyToken and verifyRole
 app.get(
   "/student-dashboard",
   verifyToken,
