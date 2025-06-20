@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NavBar from "./components/NavBar.tsx";
-import Show from "./pages/Show.tsx";
+import Hero from "./pages/Hero.tsx";
 import SignUp from "./pages/SignUp.tsx";
 import SignIn from "./pages/SignIn.tsx";
 import StudentDashboard from "./pages/StudentDashboard.tsx";
@@ -31,7 +31,7 @@ export default function App() {
           element={
             <>
               <NavBar />
-              <Show />
+              <Hero />
               <Sponsors />
               <Search />
               <Courses />

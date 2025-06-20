@@ -8,7 +8,7 @@ export default function NavBar() {
 
   return (
     <Nav className="bg-blue-50 text-F6D6D6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between py-4 items-center h-12">
           <div className="flex-shrink-0">
             <h1 className="text-3xl font-bold">
@@ -22,25 +22,25 @@ export default function NavBar() {
           <div className="hidden md:flex space-x-4 items-center">
             <a
               href="#"
-              className="hover:bg-gray-200 px-3 py-2 rounded-md text-base font-medium"
+              className="hover:text-gray-400 px-3 py-2 rounded-md text-base font-medium"
             >
               Courses
             </a>
             <a
               href="#"
-              className="hover:bg-gray-200 px-3 py-2 rounded-md text-base font-medium"
+              className="hover:text-gray-400 px-3 py-2 rounded-md text-base font-medium"
             >
               Teachers
             </a>
             <a
               href="#"
-              className="hover:bg-gray-200 px-3 py-2 rounded-md text-base font-medium"
+              className="hover:text-gray-400 px-3 py-2 rounded-md text-base font-medium"
             >
               Offers
             </a>
             <a
               href="#"
-              className="hover:bg-gray-200 px-3 py-2 rounded-md text-base font-medium"
+              className="hover:text-gray-400 px-3 py-2 rounded-md text-base font-medium"
             >
               Contacts
             </a>
